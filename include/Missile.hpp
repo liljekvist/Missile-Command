@@ -1,10 +1,11 @@
-#ifndef FIREWORK_HPP
-#define FIREWORK_HPP
+#pragma once
 
-#include "SceneObject.hpp"
 #include "Line.hpp"
+#include "Projectile.hpp"
 
-class Firework : public SceneObject
+class Missile
+    : public Projectile
+    , public SceneObject
 {
     sf::Vector2f m_begin;
     sf::Vector2f m_target;
@@ -15,14 +16,13 @@ class Firework : public SceneObject
     sf::CircleShape m_rocketShape;
     Line m_trail;
 
-public:
-    Firework(const sf::Vector2f& begin, const sf::Vector2f& target);
-    ~Firework() override;
+  public:
+    Missile(const sf::Vector2f& begin, const sf::Vector2f& target);
+    ~Missile() override;
 
     sf::Vector2f getTarget() const;
 
     bool update(const sf::Time& delta) override;
-    void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const override;
+    void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
+        const override;
 };
-
-#endif

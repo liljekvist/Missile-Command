@@ -173,18 +173,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Explosion.cpp" />
-    <ClCompile Include="source\Firework.cpp" />
+    <ClCompile Include="source\FrameCounter.cpp" />
+    <ClCompile Include="source\Missile.cpp" />
     <ClCompile Include="source\Line.cpp" />
+    <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneObject.cpp" />
+    <ClCompile Include="source\Tower.cpp" />
     <ClCompile Include="source\VectorMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Explosion.hpp" />
-    <ClInclude Include="include\Firework.hpp" />
+    <ClInclude Include="include\FrameCounter.hpp" />
+    <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Missile.hpp" />
     <ClInclude Include="include\Line.hpp" />
+    <ClInclude Include="include\Projectile.hpp" />
+    <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneObject.hpp" />
+    <ClInclude Include="include\Tower.hpp" />
     <ClInclude Include="include\VectorMath.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
