@@ -2,18 +2,24 @@
 #define EXPLOSION_HPP
 
 #include "SceneObject.hpp"
+#include "Textures.hpp"
 
-class Explosion : public SceneObject
+class Explosion: public SceneObject
 {
     float m_radius;
     float m_targetRadius;
-    sf::CircleShape m_borderShape;
-public:
+    float spriteTimer = 0.0f;
+    int spriteIndex = 0;
+    sf::Sprite explotionSheet;
+    sf::IntRect rectExplotionSheet;
+
+  public:
     Explosion(const sf::Vector2f& position, float radius);
     ~Explosion() override;
 
     bool update(const sf::Time& delta) override;
-    void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const override;
+    void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
+        const override;
 };
 
 #endif

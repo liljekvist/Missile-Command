@@ -94,10 +94,6 @@ void Game::UpdateScreen()
             else if(shared_ptr<Explosion> pExplotion = std::dynamic_pointer_cast<Explosion>(obj);
                     pExplotion)
             {
-                int windowWidth = window.getSize().x;
-                int windowHeight = window.getSize().y;
-                sf::Vector2f begin(rand() % windowWidth, rand() % windowHeight);
-                sf::Vector2f end(rand() % windowWidth, rand() % windowHeight);
                 sDrawables.ReleaseSceneObject(obj);
             }
         }
