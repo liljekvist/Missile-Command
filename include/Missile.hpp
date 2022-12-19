@@ -2,6 +2,7 @@
 
 #include "Line.hpp"
 #include "Projectile.hpp"
+#include "Textures.hpp"
 
 class Missile
     : public Projectile
@@ -10,11 +11,7 @@ class Missile
     sf::Vector2f m_begin;
     sf::Vector2f m_target;
     sf::Vector2f m_direction;
-
-    // Triangles don't exist in SFML. But if you think about it, a triangle is
-    // just a "circle" with three points...
-    sf::CircleShape m_rocketShape;
-    Line m_trail;
+    sf::Sprite m_rocketShape;
 
   public:
     Missile(const sf::Vector2f& begin, const sf::Vector2f& target);

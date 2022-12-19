@@ -173,6 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\Textures.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Explosion.cpp" />
     <ClCompile Include="source\FrameCounter.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="include\Projectile.hpp" />
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneObject.hpp" />
+    <ClInclude Include="include\Textures.hpp" />
     <ClInclude Include="include\Tower.hpp" />
     <ClInclude Include="include\VectorMath.hpp" />
   </ItemGroup>

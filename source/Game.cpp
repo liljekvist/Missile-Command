@@ -3,8 +3,8 @@
 
 Game::Game(): width(800), height(600), window(sf::VideoMode(width, height, 32), "Missile Command")
 {
-    background.loadFromFile("assets/background.jpg");
-    backgroundSprite = sf::Sprite(background);
+    Textures::loadAssets();
+    backgroundSprite = sf::Sprite(Textures::background);
 
     backgroundSprite.setScale(
         width / backgroundSprite.getLocalBounds().width,
@@ -16,8 +16,8 @@ Game::Game(int _width, int _height)
     , height(_height)
     , window(sf::VideoMode(width, height, 32), "Missile Command")
 {
-    background.loadFromFile("assets/background.jpg");
-    backgroundSprite = sf::Sprite(background);
+    Textures::loadAssets(); // Need to load the background before making the sprite
+    backgroundSprite = sf::Sprite(Textures::background);
 
     backgroundSprite.setScale(
         width / backgroundSprite.getLocalBounds().width,
@@ -28,8 +28,6 @@ Game::~Game() {}
 
 void Game::InitGame()
 {
-    // window.setFramerateLimit(60);
-    // Init Test
     sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 50))); // Tower left
     sDrawables.AddSceneObject(
         make_shared<Tower>(sf::Vector2f(width / 2, height - 50))); // Tower middle

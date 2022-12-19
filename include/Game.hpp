@@ -11,6 +11,7 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include "FrameCounter.hpp"
 #include "Missile.hpp"
 #include "Scene.hpp"
+#include "Textures.hpp"
 #include "Tower.hpp"
 #include "VectorMath.hpp"
 
@@ -28,7 +29,6 @@ class Game
     int height;
     sf::RenderWindow window; // Main game window
     sf::Clock clock;
-    sf::Texture background;
     sf::Sprite backgroundSprite;
     Scene sDrawables;
     bool running = true;
