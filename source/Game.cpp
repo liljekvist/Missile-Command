@@ -19,6 +19,9 @@ void Game::InitGame()
 {
     // window.setFramerateLimit(60);
     // Init Test
+    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 100)));
+    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(width / 2, height - 100)));
+    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(width - 250, height - 100)));
     sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(400, 600), sf::Vector2f(400, 200)));
     sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(450, 600), sf::Vector2f(400, 200)));
     sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(500, 600), sf::Vector2f(400, 200)));

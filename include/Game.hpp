@@ -9,6 +9,7 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include "FrameCounter.hpp"
 #include "Missile.hpp"
 #include "Scene.hpp"
+#include "Tower.hpp"
 
 class Game
 {
