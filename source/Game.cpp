@@ -58,8 +58,8 @@ void Game::UpdateGame()
                 sDrawables.ReleaseSceneObject(obj);
                 sDrawables.AddSceneObject(make_unique<Explosion>(position, 20.f));
             }
-
-            else // It's an explosion
+            else if(shared_ptr<Explosion> pExplotion = std::dynamic_pointer_cast<Explosion>(obj);
+                    pExplotion)
             {
                 int windowWidth = window.getSize().x;
                 int windowHeight = window.getSize().y;
@@ -67,6 +67,11 @@ void Game::UpdateGame()
                 sf::Vector2f end(rand() % windowWidth, rand() % windowHeight);
                 sDrawables.ReleaseSceneObject(obj);
                 sDrawables.AddSceneObject(make_unique<Missile>(begin, end));
+            }
+
+            else // It's an explosion
+            {
+                // do nothing
             }
         }
     }
