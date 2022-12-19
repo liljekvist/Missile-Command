@@ -4,6 +4,7 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include <vector>
 
 #include "SceneObject.hpp"
+#include "VectorMath.hpp"
 
 // Definition of why make class when teacher make good class 4 u :D
 
@@ -31,5 +32,27 @@ class Scene
     inline std::vector<shared_ptr<SceneObject>>::iterator end()
     {
         return drawables.end();
+    }
+
+    template<typename T>
+    shared_ptr<T> GetClosestSceneObjectOfType(sf::Vector2f pos)
+    {
+        shared_ptr<T> cObj = nullptr; // Clostest
+        for(auto& Obj : drawables)
+        {
+            if(shared_ptr<T> chObj = std::dynamic_pointer_cast<T>(Obj);
+               chObj) // not nullptr. Casted correctly
+            {
+                if(cObj == nullptr)
+                    cObj = chObj;
+                else if(
+                    distanceBetween(chObj->getPosition(), pos)
+                    < distanceBetween(cObj->getPosition(), pos))
+                {
+                    cObj = chObj;
+                }
+            }
+        };
+        return cObj;
     }
 };

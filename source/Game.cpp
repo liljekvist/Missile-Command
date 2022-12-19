@@ -1,8 +1,14 @@
 #include "Game.hpp"
+#include <iostream>
 
 Game::Game(): width(800), height(600), window(sf::VideoMode(width, height, 32), "Missile Command")
 {
-    // wow such empty
+    background.loadFromFile("assets/background.jpg");
+    backgroundSprite = sf::Sprite(background);
+
+    backgroundSprite.setScale(
+        width / backgroundSprite.getLocalBounds().width,
+        height / backgroundSprite.getLocalBounds().height);
 }
 
 Game::Game(int _width, int _height)
@@ -10,7 +16,12 @@ Game::Game(int _width, int _height)
     , height(_height)
     , window(sf::VideoMode(width, height, 32), "Missile Command")
 {
-    // wow such empty
+    background.loadFromFile("assets/background.jpg");
+    backgroundSprite = sf::Sprite(background);
+
+    backgroundSprite.setScale(
+        width / backgroundSprite.getLocalBounds().width,
+        height / backgroundSprite.getLocalBounds().height);
 }
 
 Game::~Game() {}
@@ -19,11 +30,11 @@ void Game::InitGame()
 {
     // window.setFramerateLimit(60);
     // Init Test
-    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 100))); // Tower left
+    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 50))); // Tower left
     sDrawables.AddSceneObject(
-        make_shared<Tower>(sf::Vector2f(width / 2, height - 100))); // Tower middle
+        make_shared<Tower>(sf::Vector2f(width / 2, height - 50))); // Tower middle
     sDrawables.AddSceneObject(
-        make_shared<Tower>(sf::Vector2f(width - 250, height - 100))); // Tower right
+        make_shared<Tower>(sf::Vector2f(width - 250, height - 50))); // Tower right
 }
 
 void Game::HandleInput()
@@ -37,19 +48,29 @@ void Game::HandleInput()
         {
             if(event.key.code == sf::Keyboard::Escape)
                 running = false;
+        }
+        else if(event.type == sf::Event::MouseButtonPressed)
+        {
             if(event.key.code == sf::Mouse::Left)
-                inputBuffer.insert(std::pair(Action::Shoot, sf::Mouse::getPosition()));
+                inputBuffer.insert(std::pair(Action::Shoot, sf::Mouse::getPosition(window)));
         }
     }
 }
 
 void Game::UpdateGame()
 {
-    for(std::pair<Action, std::any> action : inputBuffer)
+    for(auto itr = inputBuffer.begin(); itr != inputBuffer.end();)
     {
-        if(action.first == Action::Shoot) // Action is shoot and any is mousePos
+        if(itr->first == Action::Shoot) // Action is shoot and any is mousePos
         {
+            auto mousePosition = vec2iToVec2f(std::any_cast<sf::Vector2i>(itr->second));
+            auto closestTowerPtr = sDrawables.GetClosestSceneObjectOfType<Tower>(mousePosition);
+            sDrawables.AddSceneObject(
+                make_shared<Missile>(closestTowerPtr->getPosition(), mousePosition));
+            itr = inputBuffer.erase(itr);
         }
+        else
+            itr++; // not handled event so ignore
     }
 }
 
@@ -84,10 +105,12 @@ void Game::DrawGame()
 {
     // Drawing
     window.clear();
+    window.draw(backgroundSprite);
     for(auto it = sDrawables.begin(); it != sDrawables.end(); it++)
     {
         window.draw(**it);
     }
+
     window.display();
     fCounter.updateFps();
     fCounter.printFps();

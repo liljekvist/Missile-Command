@@ -30,3 +30,8 @@ float angleBetween(const sf::Vector2f& directionA, const sf::Vector2f directionB
     float angleDegrees = angleRadians * 180.f / 3.14159265359f;
     return angleDegrees;
 }
+
+sf::Vector2f vec2iToVec2f(sf::Vector2i rhs)
+{
+    return sf::Vector2f(rhs.x, rhs.y);
+}

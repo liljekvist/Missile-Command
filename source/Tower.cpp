@@ -3,9 +3,10 @@
 Tower::Tower(sf::Vector2f pos): SceneObject(pos)
 {
     auto screen = sf::VideoMode::getDesktopMode();
-    texTower.loadFromFile("assets/tower.gif");
+    texTower.loadFromFile("assets/tower.png");
     auto textureSize = texTower.getSize();
     sprTower.setTexture(texTower);
+
     sprTower.setColor(sf::Color(255, 255, 255, 200));
     pos.x = pos.x - (textureSize.x / 2); // texture magic :P
     pos.y = pos.y - (textureSize.y / 2);

@@ -8,5 +8,6 @@ float length(const sf::Vector2f& vector);
 float distanceBetween(const sf::Vector2f& pointA, const sf::Vector2f& pointB);
 sf::Vector2f normalize(const sf::Vector2f& vector);
 float angleBetween(const sf::Vector2f& directionA, const sf::Vector2f directionB);
+sf::Vector2f vec2iToVec2f(sf::Vector2i rhs);
 
 #endif
