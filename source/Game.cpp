@@ -19,14 +19,11 @@ void Game::InitGame()
 {
     // window.setFramerateLimit(60);
     // Init Test
-    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 100)));
-    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(width / 2, height - 100)));
-    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(width - 250, height - 100)));
-    sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(400, 600), sf::Vector2f(400, 200)));
-    sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(450, 600), sf::Vector2f(400, 200)));
-    sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(500, 600), sf::Vector2f(400, 200)));
-    sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(500, 600), sf::Vector2f(400, 200)));
-    sDrawables.AddSceneObject(make_shared<Missile>(sf::Vector2f(500, 600), sf::Vector2f(400, 200)));
+    sDrawables.AddSceneObject(make_shared<Tower>(sf::Vector2f(250, height - 100))); // Tower left
+    sDrawables.AddSceneObject(
+        make_shared<Tower>(sf::Vector2f(width / 2, height - 100))); // Tower middle
+    sDrawables.AddSceneObject(
+        make_shared<Tower>(sf::Vector2f(width - 250, height - 100))); // Tower right
 }
 
 void Game::HandleInput()
@@ -38,13 +35,25 @@ void Game::HandleInput()
             window.close();
         else if(event.type == sf::Event::KeyPressed)
         {
-            if(event.key.code == sf::Keyboard::Space)
+            if(event.key.code == sf::Keyboard::Escape)
                 running = false;
+            if(event.key.code == sf::Mouse::Left)
+                inputBuffer.insert(std::pair(Action::Shoot, sf::Mouse::getPosition()));
         }
     }
 }
 
 void Game::UpdateGame()
+{
+    for(std::pair<Action, std::any> action : inputBuffer)
+    {
+        if(action.first == Action::Shoot) // Action is shoot and any is mousePos
+        {
+        }
+    }
+}
+
+void Game::UpdateScreen()
 {
     sf::Time delta = clock.restart();
 
@@ -66,12 +75,6 @@ void Game::UpdateGame()
                 sf::Vector2f begin(rand() % windowWidth, rand() % windowHeight);
                 sf::Vector2f end(rand() % windowWidth, rand() % windowHeight);
                 sDrawables.ReleaseSceneObject(obj);
-                sDrawables.AddSceneObject(make_unique<Missile>(begin, end));
-            }
-
-            else // It's an explosion
-            {
-                // do nothing
             }
         }
     }
@@ -98,6 +101,7 @@ void Game::GameLoop()
     {
         HandleInput();
         UpdateGame();
+        UpdateScreen();
         DrawGame();
     }
 }

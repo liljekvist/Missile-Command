@@ -7,7 +7,7 @@ Tower::Tower(sf::Vector2f pos): SceneObject(pos)
     auto textureSize = texTower.getSize();
     sprTower.setTexture(texTower);
     sprTower.setColor(sf::Color(255, 255, 255, 200));
-    pos.x = pos.x - (textureSize.x / 2);
+    pos.x = pos.x - (textureSize.x / 2); // texture magic :P
     pos.y = pos.y - (textureSize.y / 2);
 
     sprTower.setPosition(pos);
