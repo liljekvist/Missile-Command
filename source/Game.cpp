@@ -62,9 +62,14 @@ void Game::UpdateGame()
         if(itr->first == Action::Shoot) // Action is shoot and any is mousePos
         {
             auto mousePosition = vec2iToVec2f(std::any_cast<sf::Vector2i>(itr->second));
-            auto closestTowerPtr = sDrawables.GetClosestSceneObjectOfType<Tower>(mousePosition);
-            sDrawables.AddSceneObject(
-                make_shared<Missile>(closestTowerPtr->getPosition(), mousePosition));
+            auto closestTowerPtr = sDrawables.GetClosestFirableTower(mousePosition);
+            if(closestTowerPtr != nullptr)
+            {
+                closestTowerPtr->fireMissile();
+                sDrawables.AddSceneObject(
+                    make_shared<Missile>(closestTowerPtr->getPosition(), mousePosition));
+            }
+
             itr = inputBuffer.erase(itr);
         }
         else
@@ -110,8 +115,8 @@ void Game::DrawGame()
     }
 
     window.display();
-    fCounter.updateFps();
-    fCounter.printFps();
+    // fCounter.updateFps();
+    // fCounter.printFps();
 }
 
 void Game::GameLoop()

@@ -15,9 +15,25 @@ Tower::Tower(sf::Vector2f pos): SceneObject(pos)
 
 Tower::~Tower() {}
 
+void Tower::fireMissile()
+{
+    lastFire = towerClock.getElapsedTime();
+    onCooldown = true;
+}
+
+bool Tower::canFireMissile()
+{
+    return !onCooldown;
+}
+
 bool Tower::update(const sf::Time& delta)
 {
-    // Make the tower face the mouse pointer
+    // WIP: Make the tower face the mouse pointer
+
+    if(onCooldown
+       && lastFire.asSeconds() + cooldownPeriod < towerClock.getElapsedTime().asSeconds())
+        onCooldown = false;
+
     return true;
 }
 

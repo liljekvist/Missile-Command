@@ -36,3 +36,27 @@ bool Scene::ReleaseSceneObject(shared_ptr<SceneObject> Obj)
         }));
     return deleted;
 }
+
+shared_ptr<Tower> Scene::GetClosestFirableTower(sf::Vector2f pos)
+{
+    shared_ptr<Tower> cObj = nullptr; // Clostest
+    for(auto& Obj : drawables)
+    {
+        if(shared_ptr<Tower> chObj = std::dynamic_pointer_cast<Tower>(Obj);
+           chObj) // not nullptr. Casted correctly
+        {
+            if(cObj != nullptr)
+            {
+                if(distanceBetween(chObj->getPosition(), pos)
+                       < distanceBetween(cObj->getPosition(), pos)
+                   && chObj->canFireMissile())
+                {
+                    cObj = chObj;
+                }
+            }
+            else if(chObj->canFireMissile())
+                cObj = chObj;
+        }
+    };
+    return cObj;
+}

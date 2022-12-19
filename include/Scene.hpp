@@ -4,6 +4,7 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include <vector>
 
 #include "SceneObject.hpp"
+#include "Tower.hpp"
 #include "VectorMath.hpp"
 
 // Definition of why make class when teacher make good class 4 u :D
@@ -24,6 +25,7 @@ class Scene
 
     bool AddSceneObject(shared_ptr<SceneObject> Obj);
     bool ReleaseSceneObject(shared_ptr<SceneObject> Obj);
+    shared_ptr<Tower> GetClosestFirableTower(sf::Vector2f pos);
 
     inline std::vector<shared_ptr<SceneObject>>::iterator begin() // Thanks for the Module 3 code :D
     {
