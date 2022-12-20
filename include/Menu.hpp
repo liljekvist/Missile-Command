@@ -1,11 +1,10 @@
 #pragma once
 #include "SceneObject.hpp"
 
-class Projectile: public SceneObject
+class Menu: public SceneObject
 {
-  public:
-    Projectile(const sf::Vector2f& position);
-    virtual ~Projectile();
+    Menu();
+    virtual ~Menu();
 
     virtual bool update(const sf::Time& delta) = 0;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)

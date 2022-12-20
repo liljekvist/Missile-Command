@@ -1,18 +1,23 @@
 #pragma once
 
-#include "Assets.hpp"
 #include "Projectile.hpp"
+#include "SceneObject.hpp"
+#include "Assets.hpp"
+#include "VectorMath.hpp"
 
-class Missile: public Projectile
+class Metiorite: public Projectile
 {
     sf::Vector2f m_begin;
     sf::Vector2f m_target;
     sf::Vector2f m_direction;
-    sf::Sprite m_rocketShape;
+    float spriteTimer = 0.0f;
+    int spriteIndex = 0;
+    sf::Sprite metioriteSprite;
+    sf::IntRect rectMetioriteSheet;
 
   public:
-    Missile(const sf::Vector2f& begin, const sf::Vector2f& target);
-    ~Missile() override;
+    Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target);
+    ~Metiorite() override;
 
     sf::Vector2f getTarget() const;
 

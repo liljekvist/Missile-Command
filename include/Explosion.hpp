@@ -2,7 +2,7 @@
 #define EXPLOSION_HPP
 
 #include "SceneObject.hpp"
-#include "Textures.hpp"
+#include "Assets.hpp"
 
 class Explosion: public SceneObject
 {

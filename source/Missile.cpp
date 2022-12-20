@@ -2,12 +2,12 @@
 #include "VectorMath.hpp"
 
 Missile::Missile(const sf::Vector2f& begin, const sf::Vector2f& target)
-    : SceneObject(begin)
+    : Projectile(begin)
     , m_begin(begin)
     , m_target(target)
     , m_direction(normalize(m_target - m_begin))
 {
-    m_rocketShape = sf::Sprite(Textures::missile);
+    m_rocketShape = sf::Sprite(Assets::missile);
 }
 
 Missile::~Missile() {}

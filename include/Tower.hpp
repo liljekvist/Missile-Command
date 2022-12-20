@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SceneObject.hpp"
-#include "Textures.hpp"
+#include "Assets.hpp"
 #include "VectorMath.hpp"
 
 class Tower: public SceneObject
