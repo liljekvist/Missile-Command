@@ -13,6 +13,7 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include "FrameCounter.hpp"
 #include "Meteorite.hpp"
 #include "Missile.hpp"
+#include "PauseMenu.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
 #include "Text.hpp"
@@ -28,7 +29,8 @@ class Game
     sf::RenderWindow window; // Main game window
     sf::Clock clock;
     sf::Sprite backgroundSprite;
-    Scene sDrawables;
+    Scene gameScene;
+    Scene menuScene; // used for menus
     FrameCounter fCounter;
     std::multimap<Action::Action, std::any>
         inputBuffer; // A action and any associated data to that action. So if a shoot action is

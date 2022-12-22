@@ -19,12 +19,13 @@ Game::~Game() {}
 
 void Game::InitGame()
 {
-    sDrawables.AddSceneObject(
+    gameScene.AddSceneObject(
         make_shared<Tower>(sf::Vector2f(width / 6, height - 50))); // Tower left
-    sDrawables.AddSceneObject(
+    gameScene.AddSceneObject(
         make_shared<Tower>(sf::Vector2f(width / 2, height - 50))); // Tower middle
-    sDrawables.AddSceneObject(
+    gameScene.AddSceneObject(
         make_shared<Tower>(sf::Vector2f(width - (width / 6), height - 50))); // Tower right
+    menuScene.AddSceneObject(make_shared<PauseMenu>(width, height));
 }
 
 void Game::HandleInput()
@@ -57,11 +58,11 @@ void Game::UpdateGame()
                 if(itr->first == Action::LMouse) // Action is shoot and any is mousePos
                 {
                     auto mousePosition = vec2iToVec2f(std::any_cast<sf::Vector2i>(itr->second));
-                    auto closestTowerPtr = sDrawables.GetClosestFirableTower(mousePosition);
+                    auto closestTowerPtr = gameScene.GetClosestFirableTower(mousePosition);
                     if(closestTowerPtr != nullptr)
                     {
                         closestTowerPtr->fireMissile();
-                        sDrawables.AddSceneObject(
+                        gameScene.AddSceneObject(
                             make_shared<Missile>(closestTowerPtr->getPosition(), mousePosition));
                     }
 
@@ -84,7 +85,7 @@ void Game::UpdateScreen()
     switch(gameState)
     {
         case State::State::InGame:
-            for(auto obj : sDrawables.getVec())
+            for(auto obj : gameScene.getVec())
             {
                 if(!obj->update(delta))
                 {
@@ -92,27 +93,54 @@ void Game::UpdateScreen()
                        pFirework)
                     {
                         sf::Vector2f position = pFirework->getTarget();
-                        sDrawables.ReleaseSceneObject(obj);
-                        sDrawables.AddSceneObject(make_unique<Explosion>(position, 20.f));
+                        gameScene.ReleaseSceneObject(obj);
+                        gameScene.AddSceneObject(make_unique<Explosion>(position, 20.f));
                     }
                     else if(shared_ptr<Metiorite> pMetiorite =
                                 std::dynamic_pointer_cast<Metiorite>(obj);
                             pMetiorite)
                     {
                         sf::Vector2f position = pMetiorite->getTarget();
-                        sDrawables.ReleaseSceneObject(obj);
-                        sDrawables.AddSceneObject(make_unique<Explosion>(position, 20.f));
+                        gameScene.ReleaseSceneObject(obj);
+                        gameScene.AddSceneObject(make_unique<Explosion>(position, 20.f));
                     }
                     else if(shared_ptr<Explosion> pExplotion =
                                 std::dynamic_pointer_cast<Explosion>(obj);
                             pExplotion)
                     {
-                        sDrawables.ReleaseSceneObject(obj);
+                        gameScene.ReleaseSceneObject(obj);
                     }
                 }
             }
             break;
         case State::State::Pause:
+            for(auto obj : menuScene.getVec())
+            {
+                if(!obj->update(delta))
+                {
+                    if(shared_ptr<PauseMenu> pmenu = std::dynamic_pointer_cast<PauseMenu>(obj);
+                       pmenu)
+                    {
+                        pmenu->setActive(true);
+                    }
+                    // lägg till mainmenu och scoreboard
+                }
+            }
+            break;
+        case State::State::Menu:
+            for(auto obj : menuScene.getVec())
+            {
+                if(!obj->update(delta))
+                {
+                    if(shared_ptr<PauseMenu> pmenu = std::dynamic_pointer_cast<PauseMenu>(obj);
+                       pmenu)
+                    {
+                        pmenu->setActive(false);
+                    }
+                    // lägg till mainmenu och scoreboard
+                }
+            }
+            break;
     }
 }
 
@@ -120,10 +148,21 @@ void Game::ComposeFrame()
 {
     // Drawing
     window.clear();
-    window.draw(backgroundSprite);
-    for(auto it = sDrawables.begin(); it != sDrawables.end(); it++)
+    switch(gameState)
     {
-        window.draw(**it);
+        case State::State::InGame:
+            window.draw(backgroundSprite);
+            for(auto it = gameScene.begin(); it != gameScene.end(); it++)
+            {
+                window.draw(**it);
+            }
+            break;
+        case State::State::Pause:
+            for(auto it = menuScene.begin(); it != menuScene.end(); it++)
+            {
+                window.draw(**it);
+            }
+            break;
     }
 
     window.display();
