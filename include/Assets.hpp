@@ -15,7 +15,8 @@ class Assets
     static void loadAssets()
     {
 #ifdef __linux__
-        tower.loadFromFile("../assets/Tower.png");
+        tower.loadFromFile("../assets/Tower.png"); // Since its compiled from build folder instead
+                                                   // of root we need to jump one more step out
         missile.loadFromFile("../assets/Missile.png");
         background.loadFromFile("../assets/background.jpg");
         explotionSheet.loadFromFile("../assets/explotionsheet.png");
