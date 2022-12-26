@@ -3,7 +3,7 @@
 
 class FrameCounter
 {
-    sf::Clock clock = sf::Clock::Clock();
+    sf::Clock clock;
     sf::Time lTime = clock.getElapsedTime();
     sf::Time cTime;
     float fps;

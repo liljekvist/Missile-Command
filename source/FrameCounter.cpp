@@ -1,5 +1,6 @@
 #include "FrameCounter.hpp"
 #include <iostream>
+#include <math.h>
 
 void FrameCounter::updateFps()
 {
