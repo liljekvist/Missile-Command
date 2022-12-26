@@ -1,4 +1,9 @@
 #include "Game.hpp"
+#include "Action.hpp"
+#include "State.hpp"
+#include "VectorMath.hpp"
+#include <SFML/System/Vector2.hpp>
+#include <cstddef>
 #include <iostream>
 
 Game::Game(int _width, int _height)
@@ -25,6 +30,7 @@ void Game::InitGame()
         make_shared<Tower>(sf::Vector2f(width / 2.0f, height - 50))); // Tower middle
     gameScene.AddSceneObject(
         make_shared<Tower>(sf::Vector2f(width - (width / 6.0f), height - 50))); // Tower right
+    gameScene.AddSceneObject(make_shared<Metiorite>(sf::Vector2f(), sf::Vector2f(500, 500)));
     menuScene.AddSceneObject(make_shared<PauseMenu>(width, height));
 }
 
@@ -39,6 +45,8 @@ void Game::HandleInput()
         {
             if(event.key.code == sf::Keyboard::Escape)
                 gameState = (gameState == State::InGame) ? State::Pause : State::InGame;
+            if(event.key.code == sf::Keyboard::Space)
+                inputBuffer.insert(std::pair(Action::Space, nullptr));
         }
         else if(event.type == sf::Event::MouseButtonPressed)
         {
@@ -73,7 +81,18 @@ void Game::UpdateGame()
             }
             break;
         case State::State::Pause:
-            inputBuffer.clear(); // void inputs since game is paused
+            for(auto itr = inputBuffer.begin(); itr != inputBuffer.end();) // ACtions
+            {
+                if(itr->first == Action::Space) // Action is shoot and any is mousePos
+                {
+                    gameState = State::State::Exit;
+
+                    itr = inputBuffer.erase(itr);
+                }
+                else
+                    itr++; // not handled event so ignore
+            }
+            inputBuffer.clear(); // void inputs after handling is done
             break;
         case State::Menu: break;
         case State::Exit: break;
@@ -87,6 +106,7 @@ void Game::UpdateScreen()
     switch(gameState)
     {
         case State::State::InGame:
+            std::cout << gameScene.GetSize() << std::endl;
             for(auto obj : gameScene.getVec())
             {
                 if(!obj->update(delta))
@@ -94,7 +114,13 @@ void Game::UpdateScreen()
                     if(shared_ptr<Missile> pMissile = std::dynamic_pointer_cast<Missile>(obj);
                        pMissile)
                     {
-                        sf::Vector2f position = pMissile->getTarget();
+                        sf::Vector2f position = pMissile->getPosition();
+                        auto metiorites = gameScene.GetAllOfType<Metiorite>();
+                        for(auto metiorite : metiorites)
+                        {
+                            if(distanceBetween(position, metiorite->getPosition()) < 100.f)
+                                metiorite->destroy();
+                        }
                         gameScene.ReleaseSceneObject(obj);
                         gameScene.AddSceneObject(make_unique<Explosion>(position, 20.f));
                     }
@@ -102,7 +128,7 @@ void Game::UpdateScreen()
                                 std::dynamic_pointer_cast<Metiorite>(obj);
                             pMetiorite)
                     {
-                        sf::Vector2f position = pMetiorite->getTarget();
+                        sf::Vector2f position = pMetiorite->getPosition();
                         gameScene.ReleaseSceneObject(obj);
                         gameScene.AddSceneObject(make_unique<Explosion>(position, 20.f));
                     }
@@ -186,4 +212,6 @@ void Game::GameLoop()
         UpdateScreen();
         ComposeFrame();
     }
+
+    window.close();
 }

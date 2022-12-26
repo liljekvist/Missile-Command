@@ -57,4 +57,20 @@ class Scene
         };
         return cObj;
     }
+
+    template<typename T>
+    std::vector<std::shared_ptr<T>> GetAllOfType()
+    {
+        std::vector<std::shared_ptr<T>> vType;
+        // Clostest
+        for(auto& Obj : drawables)
+        {
+            if(shared_ptr<T> chObj = std::dynamic_pointer_cast<T>(Obj);
+               chObj) // not nullptr. Casted correctly
+            {
+                vType.push_back(chObj);
+            }
+        };
+        return vType;
+    }
 };

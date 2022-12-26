@@ -16,7 +16,10 @@ Tower::~Tower() {}
 
 void Tower::fireMissile()
 {
-    lastFire = towerClock.getElapsedTime();
+    lastFire =
+        towerClock.getElapsedTime(); // There is a bug here since the timer continues running while
+                                     // game is paused. This can be exploited by spam pausing the
+                                     // game while firing bypassing the timer in game time.
     onCooldown = true;
 }
 

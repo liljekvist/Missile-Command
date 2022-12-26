@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Assets.hpp"
 #include "Projectile.hpp"
 #include "SceneObject.hpp"
-#include "Assets.hpp"
 #include "VectorMath.hpp"
 
 class Metiorite: public Projectile
@@ -14,12 +14,14 @@ class Metiorite: public Projectile
     int spriteIndex = 0;
     sf::Sprite metioriteSprite;
     sf::IntRect rectMetioriteSheet;
+    bool destroyed = false;
 
   public:
     Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target);
     ~Metiorite() override;
 
     sf::Vector2f getTarget() const;
+    void destroy();
 
     bool update(const sf::Time& delta) override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)

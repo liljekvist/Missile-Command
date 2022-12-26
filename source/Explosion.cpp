@@ -9,10 +9,9 @@ Explosion::Explosion(const sf::Vector2f& position, float radius)
     rectExplotionSheet = sf::IntRect(0, 0, sheetSize.x / 6, sheetSize.y); // 6 sprites in one sheet
     explotionSheet = sf::Sprite(Assets::explotionSheet, rectExplotionSheet);
     sf::Vector2f adjustedPosition;
-    adjustedPosition.x = position.x - ((sheetSize.x / 6) / 2); // texture magic :P
-    adjustedPosition.y = position.y - (sheetSize.y / 2);
+    adjustedPosition.x = position.x - ((sheetSize.x / 6.0f) / 2); // texture magic :P
+    adjustedPosition.y = position.y - (sheetSize.y / 2.0f);
     explotionSheet.setPosition(adjustedPosition);
-    explotionSheet.setOrigin(m_radius, m_radius);
 }
 
 Explosion::~Explosion() {}
