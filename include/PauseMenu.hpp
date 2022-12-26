@@ -1,12 +1,14 @@
 #pragma once
 #include "Assets.hpp"
 #include "Menu.hpp"
+#include "Text.hpp"
 
 class PauseMenu: public Menu
 {
     bool active = false;
-    sf::Text pausedText;
-    sf::Text quitText;
+    Text pausedText;
+    Text quitText;
+    
 
   public:
     PauseMenu(int winWidth, int winHeight);

@@ -7,7 +7,8 @@ class Text: public SceneObject
     sf::Text text;
 
   public:
-    Text(const sf::Vector2f& position, std::string text);
+    Text(const sf::Vector2f& position, const std::string text);
+    Text(const sf::Vector2f& position, const std::string _text, const int fontSize);
     ~Text() override;
 
     bool update(const sf::Time& delta) override;

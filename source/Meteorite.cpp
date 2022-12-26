@@ -10,8 +10,8 @@ Metiorite::Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target)
     rectMetioriteSheet = sf::IntRect(0, 0, sheetSize.x / 3, sheetSize.y); // 3 sprites in one sheet
     metioriteSprite = sf::Sprite(Assets::metioriteSheet, rectMetioriteSheet);
     sf::Vector2f adjustedPosition;
-    adjustedPosition.x = begin.x - ((sheetSize.x / 3) / 2); // texture magic :P
-    adjustedPosition.y = begin.y - (sheetSize.y / 2);
+    adjustedPosition.x = begin.x - ((sheetSize.x / 3.0f) / 2.0f); // texture magic :P
+    adjustedPosition.y = begin.y - (sheetSize.y / 2.0f);
     metioriteSprite.setPosition(adjustedPosition);
 }
 

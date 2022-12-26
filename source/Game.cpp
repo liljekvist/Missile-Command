@@ -20,11 +20,11 @@ Game::~Game() {}
 void Game::InitGame()
 {
     gameScene.AddSceneObject(
-        make_shared<Tower>(sf::Vector2f(width / 6, height - 50))); // Tower left
+        make_shared<Tower>(sf::Vector2f(width / 6.0f, height - 50))); // Tower left
     gameScene.AddSceneObject(
-        make_shared<Tower>(sf::Vector2f(width / 2, height - 50))); // Tower middle
+        make_shared<Tower>(sf::Vector2f(width / 2.0f, height - 50))); // Tower middle
     gameScene.AddSceneObject(
-        make_shared<Tower>(sf::Vector2f(width - (width / 6), height - 50))); // Tower right
+        make_shared<Tower>(sf::Vector2f(width - (width / 6.0f), height - 50))); // Tower right
     menuScene.AddSceneObject(make_shared<PauseMenu>(width, height));
 }
 
@@ -42,7 +42,7 @@ void Game::HandleInput()
         }
         else if(event.type == sf::Event::MouseButtonPressed)
         {
-            if(event.key.code == sf::Mouse::Left)
+            if(event.mouseButton.button == sf::Mouse::Left)
                 inputBuffer.insert(std::pair(Action::LMouse, sf::Mouse::getPosition(window)));
         }
     }
@@ -75,6 +75,8 @@ void Game::UpdateGame()
         case State::State::Pause:
             inputBuffer.clear(); // void inputs since game is paused
             break;
+        case State::Menu: break;
+        case State::Exit: break;
     }
 }
 
@@ -89,10 +91,10 @@ void Game::UpdateScreen()
             {
                 if(!obj->update(delta))
                 {
-                    if(shared_ptr<Missile> pFirework = std::dynamic_pointer_cast<Missile>(obj);
-                       pFirework)
+                    if(shared_ptr<Missile> pMissile = std::dynamic_pointer_cast<Missile>(obj);
+                       pMissile)
                     {
-                        sf::Vector2f position = pFirework->getTarget();
+                        sf::Vector2f position = pMissile->getTarget();
                         gameScene.ReleaseSceneObject(obj);
                         gameScene.AddSceneObject(make_unique<Explosion>(position, 20.f));
                     }
@@ -123,7 +125,7 @@ void Game::UpdateScreen()
                     {
                         pmenu->setActive(true);
                     }
-                    // lägg till mainmenu och scoreboard
+                    // lï¿½gg till mainmenu och scoreboard
                 }
             }
             break;
@@ -137,10 +139,11 @@ void Game::UpdateScreen()
                     {
                         pmenu->setActive(false);
                     }
-                    // lägg till mainmenu och scoreboard
+                    // lï¿½gg till mainmenu och scoreboard
                 }
             }
             break;
+        case State::Exit: break;
     }
 }
 
@@ -163,6 +166,8 @@ void Game::ComposeFrame()
                 window.draw(**it);
             }
             break;
+        case State::Menu: break;
+        case State::Exit: break;
     }
 
     window.display();

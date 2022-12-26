@@ -1,16 +1,10 @@
 #include "PauseMenu.hpp"
+#include <SFML/System/Vector2.hpp>
 
-PauseMenu::PauseMenu(int winWidth, int winHeight): Menu()
-{
-    pausedText.setFont(Assets::textFont);
-    pausedText.setString("Paused");
-    pausedText.setCharacterSize(48);
-    pausedText.setFillColor(sf::Color::White);
-    pausedText.setPosition(
-        winWidth - (pausedText.getLocalBounds().width / 2),
-        winHeight + (pausedText.getLocalBounds().height / 2));
-    pausedText.setStyle(sf::Text::Bold);
-};
+PauseMenu::PauseMenu(int winWidth, int winHeight)
+    : Menu()
+    , pausedText(sf::Vector2f(winWidth / 2.0f, 100), "Paused", 48)
+    , quitText(sf::Vector2f(winWidth / 2.0f, 200), "Quit"){};
 
 PauseMenu::~PauseMenu() {}
 
@@ -24,6 +18,7 @@ void PauseMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
     if(active)
     {
         target.draw(pausedText, states);
+        target.draw(quitText, states);
     }
 }
 
