@@ -5,14 +5,13 @@
 class Button: public SceneObject
 {
     // WIP Needs implementing
-    sf::RectangleShape buttonShape;
-    Text buttonText;
+    sf::RectangleShape m_buttonShape;
+    Text m_buttonText;
 
   public:
     Button();
-    ~Button();
 
-    bool update(const sf::Time& delta) override;
+    auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override;
 };

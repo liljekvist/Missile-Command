@@ -3,13 +3,13 @@
 
 class FrameCounter
 {
-    sf::Clock clock;
-    sf::Time lTime = clock.getElapsedTime();
-    sf::Time cTime;
-    float fps;
+    sf::Clock m_clock;
+    sf::Time m_lTime = m_clock.getElapsedTime();
+    sf::Time m_cTime;
+    float m_fps = 0.0F;
 
   public:
     void updateFps();
-    float getFps() const;
+    [[nodiscard]] auto getFps() const -> float;
     void printFps() const;
 };

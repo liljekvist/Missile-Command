@@ -2,44 +2,45 @@
 
 Tower::Tower(sf::Vector2f pos): SceneObject(pos)
 {
-    auto textureSize = Assets::tower.getSize();
-    sprTower.setTexture(Assets::tower);
+    auto texture_size = Assets::tower.getSize();
+    m_sprTower.setTexture(Assets::tower);
 
-    sprTower.setColor(sf::Color(255, 255, 255, 200));
-    pos.x = pos.x - (textureSize.x / 2.0f); // texture magic :P
-    pos.y = pos.y - (textureSize.y / 2.0f);
+    m_sprTower.setColor(sf::Color(255, 255, 255, 200));
+    pos.x = pos.x - (texture_size.x / 2.0F); // texture magic :P
+    pos.y = pos.y - (texture_size.y / 2.0F);
 
-    sprTower.setPosition(pos);
+    m_sprTower.setPosition(pos);
 }
-
-Tower::~Tower() {}
 
 void Tower::fireMissile()
 {
-    lastFire =
-        towerClock.getElapsedTime(); // There is a bug here since the timer continues running while
-                                     // game is paused. This can be exploited by spam pausing the
-                                     // game while firing bypassing the timer in game time.
-    onCooldown = true;
+    m_lastFire =
+        m_towerClock
+            .getElapsedTime(); // There is a bug here since the timer continues running while
+                               // game is paused. This can be exploited by spam pausing the
+                               // game while firing bypassing the timer in game time.
+    m_onCooldown = true;
 }
 
-bool Tower::canFireMissile()
+auto Tower::canFireMissile() const -> bool
 {
-    return !onCooldown;
+    return !m_onCooldown;
 }
 
-bool Tower::update(const sf::Time& delta)
+auto Tower::update(const sf::Time& delta) -> bool
 {
     // WIP: Make the tower face the mouse pointer
 
-    if(onCooldown
-       && lastFire.asSeconds() + cooldownPeriod < towerClock.getElapsedTime().asSeconds())
-        onCooldown = false;
+    if(m_onCooldown
+       && m_lastFire.asSeconds() + COOLDOWN_PERIOD < m_towerClock.getElapsedTime().asSeconds())
+    {
+        m_onCooldown = false;
+    }
 
     return true;
 }
 
 void Tower::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(sprTower, states);
+    target.draw(m_sprTower, states);
 }

@@ -5,38 +5,37 @@ Explosion::Explosion(const sf::Vector2f& position, float radius)
     , m_radius(0)
     , m_targetRadius(radius)
 {
-    auto sheetSize = Assets::explotionSheet.getSize();
-    rectExplotionSheet = sf::IntRect(0, 0, sheetSize.x / 6, sheetSize.y); // 6 sprites in one sheet
-    explotionSheet = sf::Sprite(Assets::explotionSheet, rectExplotionSheet);
-    sf::Vector2f adjustedPosition;
-    adjustedPosition.x = position.x - ((sheetSize.x / 6.0f) / 2); // texture magic :P
-    adjustedPosition.y = position.y - (sheetSize.y / 2.0f);
-    explotionSheet.setPosition(adjustedPosition);
+    auto sheet_size = Assets::explotionSheet.getSize();
+    m_rectExplotionSheet =
+        sf::IntRect(0, 0, sheet_size.x / 6, sheet_size.y); // 6 sprites in one sheet
+    m_explotionSheet = sf::Sprite(Assets::explotionSheet, m_rectExplotionSheet);
+    sf::Vector2f adjusted_position;
+    adjusted_position.x = position.x - ((sheet_size.x / 6.0f) / 2); // texture magic :P
+    adjusted_position.y = position.y - (sheet_size.y / 2.0f);
+    m_explotionSheet.setPosition(adjusted_position);
 }
 
-Explosion::~Explosion() {}
-
-bool Explosion::update(const sf::Time& delta)
+auto Explosion::update(const sf::Time& delta) -> bool
 {
     /*if(m_radius >= m_targetRadius)
         return false;*/
-    spriteTimer += delta.asSeconds();
-    m_radius += 100.0f * delta.asSeconds();
+    m_spriteTimer += delta.asSeconds();
+    m_radius += 100.0F * delta.asSeconds();
 
-    if(spriteIndex > 6) // Animation is done
+    if(m_spriteIndex > 6) // Animation is done
         return false;
 
-    if(spriteTimer > 0.07f)
+    if(m_spriteTimer > 0.07F)
     {
-        rectExplotionSheet.left += Assets::explotionSheet.getSize().x / 6;
-        spriteTimer = 0.0f;
-        spriteIndex++;
+        m_rectExplotionSheet.left += Assets::explotionSheet.getSize().x / 6;
+        m_spriteTimer = 0.0F;
+        m_spriteIndex++;
     }
-    explotionSheet.setTextureRect(rectExplotionSheet);
+    m_explotionSheet.setTextureRect(m_rectExplotionSheet);
     return true;
 }
 
 void Explosion::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(explotionSheet, states);
+    target.draw(m_explotionSheet, states);
 }

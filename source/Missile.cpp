@@ -10,19 +10,19 @@ Missile::Missile(const sf::Vector2f& begin, const sf::Vector2f& target)
     m_rocketShape = sf::Sprite(Assets::missile);
 }
 
-Missile::~Missile() {}
-
-sf::Vector2f Missile::getTarget() const
+auto Missile::getTarget() const -> sf::Vector2f
 {
     return m_target;
 }
 
-bool Missile::update(const sf::Time& delta)
+auto Missile::update(const sf::Time& delta) -> bool
 {
     if(distanceBetween(m_begin, this->getPosition()) >= distanceBetween(m_begin, m_target))
+    {
         return false;
+    }
 
-    this->move(m_direction * 300.0f * delta.asSeconds());
+    this->move(m_direction * 300.0F * delta.asSeconds());
 
     m_rocketShape.setPosition(this->getPosition());
 

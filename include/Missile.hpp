@@ -12,11 +12,10 @@ class Missile: public Projectile
 
   public:
     Missile(const sf::Vector2f& begin, const sf::Vector2f& target);
-    ~Missile() override;
 
-    sf::Vector2f getTarget() const;
+    auto getTarget() const -> sf::Vector2f;
 
-    bool update(const sf::Time& delta) override;
+    auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override;
 };

@@ -1,5 +1,11 @@
-Checks: 'bugprone*,clang-analyzer*,cert*,cppcore*,misc*,modernize*,performance*,portability*,readability*'
+Checks: 'bugprone*,clang-analyzer*,cppcore*,-cppcoreguidelines-pro-type-union-access,misc*,modernize*,performance*,portability*,readability*'
 FormatStyle:     file
 CheckOptions:
-      - key:     readability-implicit-bool-conversion.AllowIntegerConditions
-        value:   '1'
+    - { key: readability-implicit-bool-conversion.AllowIntegerConditions,       value: '1' }
+    - { key: readability-identifier-naming.NamespaceCase,       value: CamelCase }
+    - { key: readability-identifier-naming.ClassCase,           value: CamelCase  }
+    - { key: readability-identifier-naming.PrivateMemberPrefix, value: m_         }
+    - { key: readability-identifier-naming.StructCase,          value: CamelCase  }
+    - { key: readability-identifier-naming.FunctionCase,        value: SnakeCase }
+    - { key: readability-identifier-naming.VariableCase,        value: lower_case }
+    - { key: readability-identifier-naming.GlobalConstantCase,  value: UPPER_CASE }

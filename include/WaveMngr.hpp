@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include <vector>
 
 #include "Meteorite.hpp"
@@ -8,14 +7,16 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 
 class WaveMngr
 {
-    int currentWave = 0;
-    int difficulty = 1; // goes from 1 and up. it will scale the amout of enimies
-    int enimiesRemaining = 0;
+    static int m_current_wave;
+    static int m_difficulty; // goes from 1 and up. it will scale the amout of enimies
+    static int m_enimies_remaining;
 
   public:
-    void constructWave(Scene& gameScene); // Constructs Enimies and adds them to the gamescene
-    void enemyKilled();
-    void passWave();
-    void getDifficulty();
-    void getWave();
+    WaveMngr();
+    static void constructWave(
+        Scene& gameScene); // Constructs Enimies and adds them to the gamescene
+    static void enemyKilled();
+    static void passWave();
+    static void getDifficulty();
+    static void getWave();
 };

@@ -3,14 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 
-class SceneObject : public sf::Drawable, public sf::Transformable
+class SceneObject
+    : public sf::Drawable
+    , public sf::Transformable
 {
-public:
+  public:
     SceneObject(const sf::Vector2f& position);
-    virtual ~SceneObject();
+    //~SceneObject() override;
+    SceneObject(SceneObject& object) = default;
+    auto operator=(SceneObject const& object) -> SceneObject& = default;
+    SceneObject(SceneObject&& object) = default;
+    auto operator=(SceneObject&& object) -> SceneObject& = default;
 
-    virtual bool update(const sf::Time& delta);
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const = 0;
+    virtual auto update(const sf::Time& delta) -> bool = 0;
+    void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
+        const override = 0;
 };
 
 #endif

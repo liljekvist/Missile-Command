@@ -5,17 +5,15 @@
 
 class PauseMenu: public Menu
 {
-    bool active = false;
-    Text pausedText;
-    Text quitText;
-    
+    bool m_active = false;
+    Text m_pausedText;
+    Text m_quitText;
 
   public:
     PauseMenu(int winWidth, int winHeight);
-    ~PauseMenu();
 
-    bool update(const sf::Time& delta) override;
+    auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override;
-    virtual void setActive(const bool _active) override;
+    void setActive(bool _active) override;
 };

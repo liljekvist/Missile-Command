@@ -1,10 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <ctime>
-#include <memory>
-using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include <any>
+#include <ctime>
 #include <map>
+#include <memory>
 #include <random>
 
 #include "Action.hpp"
@@ -23,26 +22,26 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 class Game
 {
     // Variables
-    State::State gameState;
-    int width;
-    int height;
-    sf::RenderWindow window; // Main game window
-    sf::Clock clock;
-    sf::Sprite backgroundSprite;
-    Scene gameScene;
-    Scene menuScene; // used for menus
-    FrameCounter fCounter;
+    State::State m_gameState;
+    const int m_width;
+    const int m_height;
+    sf::RenderWindow m_window; // Main game window
+    sf::Clock m_clock;
+    sf::Sprite m_backgroundSprite;
+    Scene m_gameScene;
+    Scene m_menuScene; // used for menus
+    FrameCounter m_fCounter;
     std::multimap<Action::Action, std::any>
-        inputBuffer; // A action and any associated data to that action. So if a shoot action is
-                     // sent any will be a Vec2 with tthe mouse position. If a action cant be
-                     // completed it will stay in the map to allow input buffering. Shoot actions
-                     // may be discarded if all towers are on cooldown. otherwise tthe closest tower
-                     // should shoot.
-                     //
-                     // I would like to make the input handling completly async so that even if the
-                     // screen is not ready to draw a new frame the game still accepts input. Lets
-                     // se if i have time to implement that :D PS. this is complete overkill but its
-                     // fun so ill do it anyway
+        m_inputBuffer; // A action and any associated data to that action. So if a shoot action is
+                       // sent any will be a Vec2 with tthe mouse position. If a action cant be
+                       // completed it will stay in the map to allow input buffering. Shoot actions
+                       // may be discarded if all towers are on cooldown. otherwise tthe closest
+                       // tower should shoot.
+                       //
+                       // I would like to make the input handling completly async so that even if
+                       // the screen is not ready to draw a new frame the game still accepts input.
+                       // Lets se if i have time to implement that :D PS. this is complete overkill
+                       // but its fun so ill do it anyway
 
     // Functions
     void InitGame(); // Ruins once and inits windows and such
@@ -52,9 +51,11 @@ class Game
     void ComposeFrame(); // Draws to the window
 
   public:
-    Game(int _width, int _height);
+    Game(int width, int height);
     ~Game();
     Game(const Game& other) = delete;
-    Game& operator=(const Game& other) = delete;
+    Game(Game&& other) = delete;
+    auto operator=(Game&& rhs) -> Game& = delete;
+    auto operator=(const Game& other) -> Game& = delete;
     void GameLoop(); // Game Loop
 };

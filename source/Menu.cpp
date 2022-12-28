@@ -1,5 +1,3 @@
 #include "Menu.hpp"
 
-Menu::Menu(): SceneObject(position){};
-
-Menu::~Menu() {}
+Menu::Menu(): SceneObject(m_position){};

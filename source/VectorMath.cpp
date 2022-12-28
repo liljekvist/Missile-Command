@@ -1,37 +1,38 @@
+#define _USE_MATH_DEFINES
 #include "VectorMath.hpp"
 #include <cmath>
 
-float dot(const sf::Vector2f& vectorA, const sf::Vector2f& vectorB)
+auto dot(const sf::Vector2f& vectorA, const sf::Vector2f& vectorB) -> float
 {
     return vectorA.x * vectorB.x + vectorA.y * vectorB.y;
 }
 
-float length(const sf::Vector2f& vector)
+auto length(const sf::Vector2f& vector) -> float
 {
     return std::sqrt(dot(vector, vector));
 }
 
-float distanceBetween(const sf::Vector2f& pointA, const sf::Vector2f& pointB)
+auto distanceBetween(const sf::Vector2f& pointA, const sf::Vector2f& pointB) -> float
 {
     return length(pointB - pointA);
 }
 
-sf::Vector2f normalize(const sf::Vector2f& vector)
+auto normalize(const sf::Vector2f& vector) -> sf::Vector2f
 {
     return vector / length(vector);
 }
 
-float angleBetween(const sf::Vector2f& directionA, const sf::Vector2f directionB)
+auto angleBetween(const sf::Vector2f& directionA, const sf::Vector2f directionB) -> float
 {
-    sf::Vector2f normalizedA = normalize(directionA);
-    sf::Vector2f normalizedB = normalize(directionB);
-    float angleRadians =
-        std::atan2(normalizedB.y, normalizedB.x) - std::atan2(normalizedA.y, normalizedA.x);
-    float angleDegrees = angleRadians * 180.f / 3.14159265359f;
-    return angleDegrees;
+    sf::Vector2f normalized_a = normalize(directionA);
+    sf::Vector2f normalized_b = normalize(directionB);
+    float angle_radians =
+        std::atan2(normalized_b.y, normalized_b.x) - std::atan2(normalized_a.y, normalized_a.x);
+    float angle_degrees = angle_radians * 180.F / M_PI;
+    return angle_degrees;
 }
 
-sf::Vector2f vec2iToVec2f(sf::Vector2i rhs)
+auto vec2iToVec2f(sf::Vector2i rhs) -> sf::Vector2f
 {
-    return sf::Vector2f(rhs.x, rhs.y);
+    return {static_cast<float>(rhs.x), static_cast<float>(rhs.y)};
 }

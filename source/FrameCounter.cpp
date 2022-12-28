@@ -1,20 +1,20 @@
 #include "FrameCounter.hpp"
+#include <cmath>
 #include <iostream>
-#include <math.h>
 
 void FrameCounter::updateFps()
 {
-    cTime = clock.getElapsedTime();
-    fps = 1.0f / (cTime.asSeconds() - lTime.asSeconds());
-    lTime = cTime;
+    m_cTime = m_clock.getElapsedTime();
+    m_fps = 1.0F / (m_cTime.asSeconds() - m_lTime.asSeconds());
+    m_lTime = m_cTime;
 }
 
-float FrameCounter::getFps() const
+auto FrameCounter::getFps() const -> float
 {
-    return fps;
+    return m_fps;
 }
 
 void FrameCounter::printFps() const
 {
-    std::cout << "FPS: " << floor(fps) << std::endl;
+    std::cout << "FPS: " << std::floor(m_fps) << std::endl;
 }

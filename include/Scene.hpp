@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 #include <vector>
 
 #include "SceneObject.hpp"
@@ -11,66 +10,67 @@ using std::shared_ptr, std::make_shared, std::unique_ptr, std::make_unique;
 
 class Scene
 {
-    std::vector<shared_ptr<SceneObject>> drawables;
+    std::vector<std::shared_ptr<SceneObject>> m_drawables;
 
   public:
     Scene();
     ~Scene();
     Scene(const Scene& other) = delete; // No copys thanks >:(
-    Scene& operator=(const Scene& other) = delete;
+    auto operator=(const Scene& other) -> Scene& = delete;
+    Scene(Scene&& other) = delete; // No move thanks >:(
+    auto operator=(Scene&& other) -> Scene& = delete;
 
-    int GetSize() const;
+    [[nodiscard]] auto getSize() const -> size_t;
 
-    std::vector<shared_ptr<SceneObject>> getVec();
+    auto getVec() -> std::vector<std::shared_ptr<SceneObject>>;
 
-    bool AddSceneObject(shared_ptr<SceneObject> Obj);
-    bool ReleaseSceneObject(shared_ptr<SceneObject> Obj);
-    shared_ptr<Tower> GetClosestFirableTower(sf::Vector2f pos);
+    auto AddSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
+    auto ReleaseSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
+    auto GetClosestFirableTower(sf::Vector2f pos) -> std::shared_ptr<Tower>;
 
-    inline std::vector<shared_ptr<SceneObject>>::iterator begin() // Thanks for the Module 3 code :D
+    inline auto begin()
+        -> std::vector<std::shared_ptr<SceneObject>>::iterator // Thanks for the Module 3 code :D
     {
-        return drawables.begin();
+        return m_drawables.begin();
     }
-    inline std::vector<shared_ptr<SceneObject>>::iterator end()
+    inline auto end() -> std::vector<std::shared_ptr<SceneObject>>::iterator
     {
-        return drawables.end();
+        return m_drawables.end();
     }
 
     template<typename T>
-    shared_ptr<T> GetClosestSceneObjectOfType(sf::Vector2f pos)
+    auto getClosestSceneObjectOfType(sf::Vector2f pos) -> std::shared_ptr<T>
     {
-        shared_ptr<T> cObj = nullptr; // Clostest
-        for(auto& Obj : drawables)
+        std::shared_ptr<T> c_obj = nullptr; // Clostest
+        for(auto& obj : m_drawables)
         {
-            if(shared_ptr<T> chObj = std::dynamic_pointer_cast<T>(Obj);
-               chObj) // not nullptr. Casted correctly
+            if(std::shared_ptr<T> ch_obj = std::dynamic_pointer_cast<T>(obj);
+               ch_obj) // not nullptr. Casted correctly
             {
-                if(cObj == nullptr)
-                    cObj = chObj;
-                else if(
-                    distanceBetween(chObj->getPosition(), pos)
-                    < distanceBetween(cObj->getPosition(), pos))
+                if(c_obj == nullptr
+                   || distanceBetween(ch_obj->getPosition(), pos)
+                          < distanceBetween(c_obj->getPosition(), pos))
                 {
-                    cObj = chObj;
+                    c_obj = ch_obj;
                 }
             }
         };
-        return cObj;
+        return c_obj;
     }
 
     template<typename T>
-    std::vector<std::shared_ptr<T>> GetAllOfType()
+    auto getAllOfType() -> std::vector<std::shared_ptr<T>>
     {
-        std::vector<std::shared_ptr<T>> vType;
+        std::vector<std::shared_ptr<T>> v_type;
         // Clostest
-        for(auto& Obj : drawables)
+        for(auto& obj : m_drawables)
         {
-            if(shared_ptr<T> chObj = std::dynamic_pointer_cast<T>(Obj);
-               chObj) // not nullptr. Casted correctly
+            if(std::shared_ptr<T> ch_obj = std::dynamic_pointer_cast<T>(obj);
+               ch_obj) // not nullptr. Casted correctly
             {
-                vType.push_back(chObj);
+                v_type.push_back(ch_obj);
             }
         };
-        return vType;
+        return v_type;
     }
 };

@@ -2,27 +2,24 @@
 #include <SFML/System/Vector2.hpp>
 
 PauseMenu::PauseMenu(int winWidth, int winHeight)
-    : Menu()
-    , pausedText(sf::Vector2f(winWidth / 2.0f, 100), "Paused", 48)
-    , quitText(sf::Vector2f(winWidth / 2.0f, 200), "Quit"){};
+    : m_pausedText(sf::Vector2f(winWidth / 2.0f, 100), "Paused", 48)
+    , m_quitText(sf::Vector2f(winWidth / 2.0f, 200), "Quit"){};
 
-PauseMenu::~PauseMenu() {}
-
-bool PauseMenu::update(const sf::Time& delta)
+auto PauseMenu::update(const sf::Time& delta) -> bool
 {
     return false;
 }
 
 void PauseMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if(active)
+    if(m_active)
     {
-        target.draw(pausedText, states);
-        target.draw(quitText, states);
+        target.draw(m_pausedText, states);
+        target.draw(m_quitText, states);
     }
 }
 
 void PauseMenu::setActive(const bool _active)
 {
-    active = _active;
+    m_active = _active;
 }

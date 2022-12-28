@@ -1,58 +1,56 @@
 #include "Text.hpp"
 
-Text::Text(const sf::Vector2f& position, const std::string _text): SceneObject(position)
+Text::Text(const sf::Vector2f& position, const std::string& _text): SceneObject(position)
 {
     // select the font
-    text.setFont(Assets::textFont); // font is a sf::Font
+    m_text.setFont(Assets::textFont); // font is a sf::Font
 
     // set the string to display
-    text.setString(_text);
+    m_text.setString(_text);
 
     // set the character size
-    text.setCharacterSize(24); // in pixels, not points!
+    m_text.setCharacterSize(24); // in pixels, not points!
 
     // set the color
-    text.setFillColor(sf::Color::White);
+    m_text.setFillColor(sf::Color::White);
 
-    text.setPosition(
-        position.x - (text.getLocalBounds().width / 2),
-        position.y + (text.getLocalBounds().height / 2));
+    m_text.setPosition(
+        position.x - (m_text.getLocalBounds().width / 2),
+        position.y + (m_text.getLocalBounds().height / 2));
 
     // set the text style
-    text.setStyle(sf::Text::Bold);
+    m_text.setStyle(sf::Text::Bold);
 }
 
-Text::Text(const sf::Vector2f& position, const std::string _text, const int fontSize)
+Text::Text(const sf::Vector2f& position, const std::string& _text, const int fontSize)
     : SceneObject(position)
 {
     // select the font
-    text.setFont(Assets::textFont); // font is a sf::Font
+    m_text.setFont(Assets::textFont); // font is a sf::Font
 
     // set the string to display
-    text.setString(_text);
+    m_text.setString(_text);
 
     // set the character size
-    text.setCharacterSize(fontSize); // in pixels, not points!
+    m_text.setCharacterSize(fontSize); // in pixels, not points!
 
     // set the color
-    text.setFillColor(sf::Color::White);
+    m_text.setFillColor(sf::Color::White);
 
-    text.setPosition(
-        position.x - (text.getLocalBounds().width / 2),
-        position.y + (text.getLocalBounds().height / 2));
+    m_text.setPosition(
+        position.x - (m_text.getLocalBounds().width / 2),
+        position.y + (m_text.getLocalBounds().height / 2));
 
     // set the text style
-    text.setStyle(sf::Text::Bold);
+    m_text.setStyle(sf::Text::Bold);
 }
 
-Text::~Text() {}
-
-bool Text::update(const sf::Time& delta)
+auto Text::update(const sf::Time& /*delta*/) -> bool
 {
     return false; // no need to update this object
 }
 
 void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(text, states);
+    target.draw(m_text, states);
 }

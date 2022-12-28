@@ -6,57 +6,60 @@ Metiorite::Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target)
     , m_target(target)
     , m_direction(normalize(m_target - m_begin))
 {
-    auto sheetSize = Assets::metioriteSheet.getSize();
-    rectMetioriteSheet = sf::IntRect(0, 0, sheetSize.x / 3, sheetSize.y); // 3 sprites in one sheet
-    metioriteSprite = sf::Sprite(Assets::metioriteSheet, rectMetioriteSheet);
-    sf::Vector2f adjustedPosition;
-    adjustedPosition.x = begin.x - ((sheetSize.x / 3.0f) / 2.0f); // texture magic :P
-    adjustedPosition.y = begin.y - (sheetSize.y / 2.0f);
-    metioriteSprite.setPosition(adjustedPosition);
-    metioriteSprite.setScale(0.5f, 0.5f);
+    auto sheet_size = Assets::metioriteSheet.getSize();
+    m_rectMetioriteSheet =
+        sf::IntRect(0, 0, sheet_size.x / 3, sheet_size.y); // 3 sprites in one sheet
+    m_metioriteSprite = sf::Sprite(Assets::metioriteSheet, m_rectMetioriteSheet);
+    sf::Vector2f adjusted_position;
+    adjusted_position.x = begin.x - ((sheet_size.x / 3.0F) / 2.0F); // texture magic :P
+    adjusted_position.y = begin.y - (sheet_size.y / 2.0F);
+    m_metioriteSprite.setPosition(adjusted_position);
+    m_metioriteSprite.setScale(0.5F, 0.5F);
 }
-
-Metiorite::~Metiorite() {}
 
 void Metiorite::destroy()
 {
-    destroyed = true;
+    m_destroyed = true;
 }
 
-sf::Vector2f Metiorite::getTarget() const
+auto Metiorite::getTarget() const -> sf::Vector2f
 {
     return m_target;
 }
 
-bool Metiorite::update(const sf::Time& delta)
+auto Metiorite::update(const sf::Time& delta) -> bool
 {
     if(distanceBetween(m_begin, this->getPosition()) >= distanceBetween(m_begin, m_target))
-        return false;
-    if(destroyed)
-        return false;
-
-    spriteTimer += delta.asSeconds();
-    if(spriteIndex >= 3)
     {
-        spriteIndex = 0;
-        rectMetioriteSheet.left = 0;
+        return false;
+    }
+    if(m_destroyed)
+    {
+        return false;
+    }
+
+    m_spriteTimer += delta.asSeconds();
+    if(m_spriteIndex >= 3)
+    {
+        m_spriteIndex = 0;
+        m_rectMetioriteSheet.left = 0;
     } // Animation is done
 
-    if(spriteTimer > 0.17f)
+    if(m_spriteTimer > 0.17F)
     {
-        rectMetioriteSheet.left += Assets::metioriteSheet.getSize().x / 3;
-        spriteTimer = 0.0f;
-        spriteIndex++;
+        m_rectMetioriteSheet.left += Assets::metioriteSheet.getSize().x / 3;
+        m_spriteTimer = 0.0F;
+        m_spriteIndex++;
     }
-    metioriteSprite.setTextureRect(rectMetioriteSheet);
-    this->move(m_direction * 80.0f * delta.asSeconds());
+    m_metioriteSprite.setTextureRect(m_rectMetioriteSheet);
+    this->move(m_direction * 80.0F * delta.asSeconds());
 
-    metioriteSprite.setPosition(this->getPosition());
+    m_metioriteSprite.setPosition(this->getPosition());
 
     return true;
 }
 
 void Metiorite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(metioriteSprite, states);
+    target.draw(m_metioriteSprite, states);
 }
