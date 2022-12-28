@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8.12)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 project("Missile Command")
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Before running, you have to install the SFML-libraries
 # sudo apt-get install libsfml-dev
