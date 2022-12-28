@@ -39,7 +39,8 @@ auto Metiorite::update(const sf::Time& delta) -> bool
     }
 
     m_spriteTimer += delta.asSeconds();
-    if(m_spriteIndex >= 3)
+
+    if(m_spriteIndex >= 2)
     {
         m_spriteIndex = 0;
         m_rectMetioriteSheet.left = 0;
@@ -47,7 +48,7 @@ auto Metiorite::update(const sf::Time& delta) -> bool
 
     if(m_spriteTimer > 0.17F)
     {
-        m_rectMetioriteSheet.left += Assets::metioriteSheet.getSize().x / 3;
+        m_rectMetioriteSheet.left += static_cast<int>(Assets::metioriteSheet.getSize().x / 3);
         m_spriteTimer = 0.0F;
         m_spriteIndex++;
     }

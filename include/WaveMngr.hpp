@@ -2,21 +2,22 @@
 #include <memory>
 #include <vector>
 
+#include "Game.hpp"
 #include "Meteorite.hpp"
 #include "Scene.hpp"
 
 class WaveMngr
 {
-    static int m_current_wave;
-    static int m_difficulty; // goes from 1 and up. it will scale the amout of enimies
+    static int m_current_wave; // Rechable everywhere but private in my eyes ;´()
+    static int m_difficulty;
     static int m_enimies_remaining;
 
   public:
-    WaveMngr();
     static void constructWave(
         Scene& gameScene); // Constructs Enimies and adds them to the gamescene
-    static void enemyKilled();
+    static void enemyDestroyed();
     static void passWave();
-    static void getDifficulty();
-    static void getWave();
+    static auto getDifficulty() -> int;
+    static auto getWave() -> int;
+    static auto getEnemiesRemaning() -> int;
 };

@@ -1,8 +1,8 @@
 #include <Game.hpp>
 
-int main()
+auto main() -> int
 {
-    Game game(800, 600);
+    Game game(1280, 800);
     game.GameLoop();
     return 0;
 }

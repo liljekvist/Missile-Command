@@ -2,36 +2,42 @@
 #include "Action.hpp"
 #include "State.hpp"
 #include "VectorMath.hpp"
+#include "WaveMngr.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <cstddef>
 #include <iostream>
 
 Game::Game(int width, int height)
     : m_gameState(State::InGame)
-    , m_width(width)
-    , m_height(height)
     , m_window(sf::VideoMode(width, height, 32), "Missile Command")
 {
+    Game::height = height;
+    Game::width = width;
     Assets::loadAssets(); // Need to load the background before making the sprite
     m_backgroundSprite = sf::Sprite(Assets::background);
 
     m_backgroundSprite.setScale(
-        m_width / m_backgroundSprite.getLocalBounds().width,
-        m_height / m_backgroundSprite.getLocalBounds().height);
+        width / m_backgroundSprite.getLocalBounds().width,
+        height / m_backgroundSprite.getLocalBounds().height);
 }
 
 Game::~Game() = default;
 
 void Game::InitGame()
 {
+    srand(time(nullptr)); // Set up the random number gen for use later in WaveMngr.
+
+    m_window.setVerticalSyncEnabled(
+        true); // no need to run the game at lightspeed. this game is a good usecase for vsync.
+
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(m_width / 6.0f, m_height - 50))); // Tower left
+        std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - 50))); // Tower left
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(m_width / 2.0f, m_height - 50))); // Tower middle
-    m_gameScene.AddSceneObject(std::make_shared<Tower>(
-        sf::Vector2f(m_width - (m_width / 6.0f), m_height - 50))); // Tower right
-    m_gameScene.AddSceneObject(std::make_shared<Metiorite>(sf::Vector2f(), sf::Vector2f(500, 500)));
-    m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(m_width, m_height));
+        std::make_shared<Tower>(sf::Vector2f(width / 2.0F, height - 50))); // Tower middle
+    m_gameScene.AddSceneObject(
+        std::make_shared<Tower>(sf::Vector2f(width - (width / 6.0F), height - 50))); // Tower right
+
+    m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(width, height));
 }
 
 void Game::HandleInput()
@@ -90,6 +96,12 @@ void Game::UpdateGame()
                     itr++; // not handled event so ignore
                 }
             }
+            // Wave Logic
+            if(WaveMngr::getEnemiesRemaning() == 0)
+            {
+                WaveMngr::passWave(); // Passing last wave.
+                WaveMngr::constructWave(m_gameScene);
+            }
             break;
         case State::State::Pause:
             for(auto itr = m_inputBuffer.begin(); itr != m_inputBuffer.end();) // ACtions
@@ -112,7 +124,7 @@ void Game::UpdateGame()
     }
 }
 
-void Game::UpdateScreen()
+void Game::UpdateScreen() // Needs a refactor
 {
     sf::Time delta = m_clock.restart();
 
@@ -131,13 +143,15 @@ void Game::UpdateScreen()
                         auto metiorites = m_gameScene.getAllOfType<Metiorite>();
                         for(const auto& metiorite : metiorites)
                         {
-                            if(distanceBetween(position, metiorite->getPosition()) < 100.F)
+                            if(distanceBetween(position, metiorite->getPosition())
+                               < EXPLOTION_RADIUS)
                             {
                                 metiorite->destroy();
                             }
                         }
                         m_gameScene.ReleaseSceneObject(obj);
-                        m_gameScene.AddSceneObject(std::make_unique<Explosion>(position, 20.F));
+                        m_gameScene.AddSceneObject(
+                            std::make_unique<Explosion>(position, EXPLOTION_RADIUS));
                     }
                     else if(std::shared_ptr<Metiorite> p_metiorite =
                                 std::dynamic_pointer_cast<Metiorite>(obj);
@@ -145,7 +159,9 @@ void Game::UpdateScreen()
                     {
                         sf::Vector2f position = p_metiorite->getPosition();
                         m_gameScene.ReleaseSceneObject(obj);
-                        m_gameScene.AddSceneObject(std::make_unique<Explosion>(position, 20.f));
+                        WaveMngr::enemyDestroyed();
+                        m_gameScene.AddSceneObject(
+                            std::make_unique<Explosion>(position, EXPLOTION_RADIUS));
                     }
                     else if(std::shared_ptr<Explosion> p_explotion =
                                 std::dynamic_pointer_cast<Explosion>(obj);

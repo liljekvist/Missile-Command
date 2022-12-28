@@ -9,7 +9,7 @@ class SceneObject
 {
   public:
     SceneObject(const sf::Vector2f& position);
-    //~SceneObject() override;
+    ~SceneObject() override;
     SceneObject(SceneObject& object) = default;
     auto operator=(SceneObject const& object) -> SceneObject& = default;
     SceneObject(SceneObject&& object) = default;

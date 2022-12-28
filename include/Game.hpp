@@ -21,10 +21,11 @@
 
 class Game
 {
+    // Game Config constants
+    static constexpr float EXPLOTION_RADIUS = 60.F;
+
     // Variables
     State::State m_gameState;
-    const int m_width;
-    const int m_height;
     sf::RenderWindow m_window; // Main game window
     sf::Clock m_clock;
     sf::Sprite m_backgroundSprite;
@@ -50,11 +51,14 @@ class Game
     void UpdateScreen(); // Updates screen objects for drawing
     void ComposeFrame(); // Draws to the window
 
+  protected:
   public:
     Game(int width, int height);
     ~Game();
     Game(const Game& other) = delete;
     Game(Game&& other) = delete;
+    inline static int width;
+    inline static int height;
     auto operator=(Game&& rhs) -> Game& = delete;
     auto operator=(const Game& other) -> Game& = delete;
     void GameLoop(); // Game Loop
