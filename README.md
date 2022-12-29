@@ -18,48 +18,6 @@ Efter denna nivå finns det ett fyra olika extraval som bygger vidare på grunds
 
 Notera att ett extraval måste vara fulltständigt implementerat enligt dess kriterier för att uppnå sin poäng. Halvfärdiga, eller "nästan färdiga", lösningar räknas ej.
 
-## Hur ritar du objekt till ett fönster?
-
-För att kunna skapa ett fönster och rita objekt kommer du använda ett färdigt bibliotek med namnet SFML (Simple and Fast Multimedia Library). Med detta bibliotek kan du snabbt och smidigt komma igång med att rita objekt.
-
-Följande kodexempel skapar ett fönster och ritar en grön cirkel från kant-till-kant i fönstret:
-```cpp
-#include <SFML/Graphics.hpp>
-
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-
-    return 0;
-}
-```
-
-För att komma igång får du en del exempelkod att utgå ifrån. Det är helt okej att använda den koden som ges, men det är ingen krav att den måste användas. Syftet med koden är att introducera exempelvis:
-- Hur du skapar grunden för att köra ett visuellt projekt med SFML.
-- Hur du kan skapa egna klasser för spelobjekt som ska...
-	- uppdateras över tid (exempelvis position).
-	- ritas till fönstret med ny position.
-- Matematik för att beräkna...
-	- ny position baserat på en riktning och hastighet över tid.
-	- avstånd mellan två positioner.
-	- rotationsvinkel baserat på en viss riktning. 
-
 ## Betygskriterier
 
 **Kodkriterier:**
