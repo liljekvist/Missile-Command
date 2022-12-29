@@ -71,44 +71,44 @@ För att komma igång får du en del exempelkod att utgå ifrån. Det är helt o
     - Detta inkluderar exempelvis `vector`, smartpekare etc.
 
 **För betyget E:**
-- Det måste finnas en egenskapad klass **Tower** som används i spelet.
+- [X] Det måste finnas en egenskapad klass **Tower** som används i spelet.
 	- Det ska bara finnas ett torn som kan skjuta missiler.
     - Det ska finnas någon form av "nerkylning" (cooldown) för att avfyra missiler. Exempelvis kan det finnas en begränsning på en (1) sekund innan en missil kan avfyras igen. Det kan alltså hända att spelaren väljer att avfyra en missil, men inget händer eftersom tornet "kyler ner".
-- Det måste finnas en egenskapad abstrakt basklass **Projectile** som projektiltyper ärver från.
-- Det måste finnas en egenskapad klass **Missile** som ärver från **Projectile** och används i spelet.
+- [X] Det måste finnas en egenskapad abstrakt basklass **Projectile** som projektiltyper ärver från.
+- [X] Det måste finnas en egenskapad klass **Missile** som ärver från **Projectile** och används i spelet.
 	- När spelaren trycker ner vänster musknapp ska tornet skjuta en missil till musens position i fönstret.
 	- Missiler är visuella projektiler som färdas i en rak linje till sin destination.
 	- När en missil når sin destination ska den "försvinna". Det är dock okej (och rekommenderat) att "återanvända" missilen igen istället för att avallokera och skapa nya.
 	- När en missil når sin destination ska alla meteoriter inom en mindre radie också förstöras.
-- Det måste finnas en egenskapad klass **Meteorite** som ärver från **Projectile** och används i spelet.
+- [X] Det måste finnas en egenskapad klass **Meteorite** som ärver från **Projectile** och används i spelet.
 	- Meteroriter ska färdas från himlen ner mot marken i en rak linje. Linjen som meteoriter färdas ska ha slumpmässig riktning mot marken. De ska alltså inte bara falla "rakt ner".
 	- När en meteorit når marken ska den "försvinna" och spelaren tappar ett av sina kvarvarande liv. Likt missiler är det okej (och rekommenderat) att "återanvända" meteoriter istället för att avallokera och skapa nya. 
-- Det ska vara finnas en visuell skillnad mellan olika objekt som ritas i spelet.
+- [X] Det ska vara finnas en visuell skillnad mellan olika objekt som ritas i spelet.
     - Det ska vara tydligt att se skillnad mellan torn, missiler och meteoriter.
     - Grafiken behöver inte vara "snygg". Det är ok att använda simpla former och färger för att rita spelet.
     - Det finns inga krav på "animationer". Tornet måste alltså inte "sikta", utan kan vara en fast kvadrat längst ner i fönstret.
-- Det ska finnas en array/behållare där samtliga pekare (av samma basklasstyp) till missiler och projektiler ska samlas.
+- [X] Det ska finnas en array/behållare där samtliga pekare (av samma basklasstyp) till missiler och projektiler ska samlas.
     - Alla missiler och projekter ska allokeras på heapen, och pekare till dessa objekt ska alltså blandas i en och samma array/behållare.
     - Det är tillåtet att använda en behållare från standardbiblioteket för detta, exempelvis `std::vector`.
     - Polymorfism ska användas i någon form.
-- Spelaren börjar med tre (3) liv. Spelet fortsätter tills att spelaren har 0 liv och förlorar, dvs. när tre olika meteorieter har nått marken. Spelarens uppgift är alltså att förstöra meteoriter innan de når marken för att fortsätta spela. Spelarens kvarvarande liv ska visualiseras på något vis, exempelvis genom att rita tre symboler eller en siffra i hörnet av fönstret.
-- Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
+- [ ] Spelaren börjar med tre (3) liv. Spelet fortsätter tills att spelaren har 0 liv och förlorar, dvs. när tre olika meteorieter har nått marken. Spelarens uppgift är alltså att förstöra meteoriter innan de når marken för att fortsätta spela. Spelarens kvarvarande liv ska visualiseras på något vis, exempelvis genom att rita tre symboler eller en siffra i hörnet av fönstret.
+- [ ] Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
 
 **Extraval för högre betyg:**
-- **Meny**
+- [ ] **Meny**
     - Ska presenteras för spelaren när programmet startar, och återgås till när spelet är över.
     - Det ska inte finnas någon gräns för hur många gånger spelet kan startas från menyn och återgå tillbaka. Rekursion är alltså **inte** ok här.
     - Det ska *åtminstone* finnas två val för spelaren att välja mellan i menyn: starta spelet och avsluta.
-- **Fler torn**
+- [X] **Fler torn**
     - Det ska finnas tre (3) torn istället för ett (1).
     - När spelaren väljer att avfyra en missil ska denna avfyras från närmsta torn (till destinationen) som inte är på "nerkylning" (cooldown). Om samtliga torn är på "nerkylning" kan ingen missil skjutas.
-- **Spelrundor**
+- [ ] **Spelrundor**
     - Istället för ett kontinuerligt spel som bara tar slut när spelaren förlorar ska det finnas "spelrundor".
     - Under en spelrunda ska det skapas ett bestämt antal meteoriter.
     - Spelaren vinner en spelrunda när alla meteoriter i den rundan är förstörda.
     - Det ska finnas någon tydlig indikation att en ny spelrunda påbörjas, exempelvis en viss text i fönstret.
     - Antalet meteoriter ska öka för varje spelrunda. Exempelvis kan första rundan innehålla fem (5) meteoriter, andra rundan tio (10) meteoriter, tredje rundan femton (15) meteoriter osv.
-- **Highscores**
+- [ ] **Highscores**
     - Spelaren ska samla någon form av poäng under sitt spelande. Exempelvis kan spelaren få poäng baserat på speltid, eller antalet meteoriter som spelaren förstör.
     - Under speltid ska spelaren alltid se sin nuvarande poäng. Exempelvis kan poängen ritas som siffra i ett av hörnen på fönstret.
     - Upp till fem (5) högsta poängresultat ska lagras till en fil mellan programkörningar. Poängen i filen ska lagras i ordning.
