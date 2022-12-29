@@ -4,12 +4,13 @@
 #include "VectorMath.hpp"
 #include "WaveMngr.hpp"
 #include <SFML/System/Vector2.hpp>
+#include <algorithm>
 #include <cstddef>
 #include <iostream>
 
 Game::Game(int width, int height)
     : m_gameState(State::InGame)
-    , m_window(sf::VideoMode(width, height, 32), "Missile Command")
+    , m_window(sf::VideoMode(width, height, 32), "Missile Command (gradius styled)")
 {
     Game::height = height;
     Game::width = width;
@@ -19,6 +20,9 @@ Game::Game(int width, int height)
     m_backgroundSprite.setScale(
         width / m_backgroundSprite.getLocalBounds().width,
         height / m_backgroundSprite.getLocalBounds().height);
+    m_backgroundSprite.move(
+        0,
+        -30.0F); // Make a black bar at the bottom for text (That looks like gradius)
 }
 
 Game::~Game() = default;
@@ -31,11 +35,11 @@ void Game::InitGame()
         true); // no need to run the game at lightspeed. this game is a good usecase for vsync.
 
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - 50))); // Tower left
+        std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - 70))); // Tower left
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width / 2.0F, height - 50))); // Tower middle
+        std::make_shared<Tower>(sf::Vector2f(width / 2.0F, height - 70))); // Tower middle
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width - (width / 6.0F), height - 50))); // Tower right
+        std::make_shared<Tower>(sf::Vector2f(width - (width / 6.0F), height - 70))); // Tower right
 
     m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(width, height));
 }
@@ -141,14 +145,15 @@ void Game::UpdateScreen() // Needs a refactor
                     {
                         sf::Vector2f position = p_missile->getPosition();
                         auto metiorites = m_gameScene.getAllOfType<Metiorite>();
-                        for(const auto& metiorite : metiorites)
-                        {
-                            if(distanceBetween(position, metiorite->getPosition())
-                               < EXPLOTION_RADIUS)
-                            {
-                                metiorite->destroy();
-                            }
-                        }
+                        std::for_each(
+                            metiorites.begin(),
+                            metiorites.end(),
+                            [&position](auto& elem) {
+                                if(elem->isInsideRadiusOfPos(position, EXPLOTION_RADIUS))
+                                {
+                                    elem->destroy();
+                                }
+                            });
                         m_gameScene.ReleaseSceneObject(obj);
                         m_gameScene.AddSceneObject(
                             std::make_unique<Explosion>(position, EXPLOTION_RADIUS));

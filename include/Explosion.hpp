@@ -1,6 +1,4 @@
-#ifndef EXPLOSION_HPP
-#define EXPLOSION_HPP
-
+#pragma once
 #include "Assets.hpp"
 #include "SceneObject.hpp"
 
@@ -20,5 +18,3 @@ class Explosion: public SceneObject
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override;
 };
-
-#endif

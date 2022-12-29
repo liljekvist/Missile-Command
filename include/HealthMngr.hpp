@@ -1,16 +1,18 @@
 #pragma once
-#include "Scene.hpp"
 #include "SceneObject.hpp"
-#include "Text.hpp"
+#include <SFML/Graphics/Sprite.hpp>
 
-class Button: public SceneObject
+class HealthManager: public SceneObject
 {
-    // WIP Needs implementing
-    sf::RectangleShape m_buttonShape;
-    Text m_buttonText;
+    int m_hearts = 0;
 
   public:
-    Button();
+    HealthManager();
+
+    auto getHearts() -> int;
+    void addHeart();
+    void loseHeart();
+    void resetHearts();
 
     auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)

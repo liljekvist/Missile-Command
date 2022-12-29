@@ -17,16 +17,17 @@ class Metiorite: public Projectile
     sf::Vector2f m_begin;
     sf::Vector2f m_target;
     sf::Vector2f m_direction;
-    float m_spriteTimer = 0.0F;
-    int m_spriteIndex = 0;
     sf::Sprite m_metioriteSprite;
     sf::IntRect m_rectMetioriteSheet;
+    float m_spriteTimer = 0.0F;
+    int m_spriteIndex = 0;
     bool m_destroyed = false;
 
   public:
     Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target);
 
-    auto getTarget() const -> sf::Vector2f;
+    auto getTarget() const -> sf::Vector2f override;
+    auto isInsideRadiusOfPos(const sf::Vector2f& pos, const float& radius) -> bool;
     void destroy();
 
     auto update(const sf::Time& delta) -> bool override;

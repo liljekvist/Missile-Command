@@ -1,5 +1,4 @@
-#ifndef SCENE_OBJECT_HPP
-#define SCENE_OBJECT_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -19,5 +18,3 @@ class SceneObject
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override = 0;
 };
-
-#endif

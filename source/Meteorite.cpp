@@ -30,6 +30,11 @@ auto Metiorite::getTarget() const -> sf::Vector2f
     return m_target;
 }
 
+auto Metiorite::isInsideRadiusOfPos(const sf::Vector2f& pos, const float& radius) -> bool
+{
+    return distanceBetween(pos, this->getPosition()) < radius;
+}
+
 auto Metiorite::update(const sf::Time& delta) -> bool
 {
     if(distanceBetween(m_begin, this->getPosition()) >= distanceBetween(m_begin, m_target))

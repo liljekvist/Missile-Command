@@ -1,5 +1,4 @@
-#ifndef VECTOR_MATH_HPP
-#define VECTOR_MATH_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -9,5 +8,3 @@ auto distanceBetween(const sf::Vector2f& pointA, const sf::Vector2f& pointB) -> 
 auto normalize(const sf::Vector2f& vector) -> sf::Vector2f;
 auto angleBetween(const sf::Vector2f& directionA, sf::Vector2f directionB) -> float;
 auto vec2iToVec2f(sf::Vector2i rhs) -> sf::Vector2f;
-
-#endif
