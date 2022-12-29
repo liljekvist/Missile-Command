@@ -41,6 +41,8 @@ void Game::InitGame()
     m_gameScene.AddSceneObject(
         std::make_shared<Tower>(sf::Vector2f(width - (width / 6.0F), height - 70))); // Tower right
 
+    m_gameScene.AddSceneObject(std::make_shared<Text>(sf::Vector2f(10, height - 70.F), "Score: 0"));
+
     m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(width, height));
 }
 
@@ -128,7 +130,8 @@ void Game::UpdateGame()
     }
 }
 
-void Game::UpdateScreen() // Needs a refactor
+void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into parts or move code to
+                          // objects
 {
     sf::Time delta = m_clock.restart();
 
