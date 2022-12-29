@@ -1,4 +1,5 @@
 #include "Meteorite.hpp"
+#include <SFML/System/Vector2.hpp>
 
 Metiorite::Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target)
     : Projectile(begin)
@@ -6,15 +7,17 @@ Metiorite::Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target)
     , m_target(target)
     , m_direction(normalize(m_target - m_begin))
 {
-    auto sheet_size = Assets::metioriteSheet.getSize();
+    sf::Vector2u sheet_size = Assets::metioriteSheet.getSize();
     m_rectMetioriteSheet =
-        sf::IntRect(0, 0, sheet_size.x / 3, sheet_size.y); // 3 sprites in one sheet
+        sf::IntRect(0, 0, sheet_size.x / SPRITES_PER_SHEET, sheet_size.y); // 3 sprites in one sheet
     m_metioriteSprite = sf::Sprite(Assets::metioriteSheet, m_rectMetioriteSheet);
+
     sf::Vector2f adjusted_position;
-    adjusted_position.x = begin.x - ((sheet_size.x / 3.0F) / 2.0F); // texture magic :P
+    adjusted_position.x = begin.x - ((sheet_size.x / SPRITES_PER_SHEET) / 2.0F); // texture magic :P
     adjusted_position.y = begin.y - (sheet_size.y / 2.0F);
+
     m_metioriteSprite.setPosition(adjusted_position);
-    m_metioriteSprite.setScale(0.5F, 0.5F);
+    m_metioriteSprite.setScale(SPRITE_SCALE_FACTOR, SPRITE_SCALE_FACTOR);
 }
 
 void Metiorite::destroy()
@@ -46,14 +49,15 @@ auto Metiorite::update(const sf::Time& delta) -> bool
         m_rectMetioriteSheet.left = 0;
     } // Animation is done
 
-    if(m_spriteTimer > 0.17F)
+    if(m_spriteTimer > ANIMATION_ROTATION_DELAY)
     {
-        m_rectMetioriteSheet.left += static_cast<int>(Assets::metioriteSheet.getSize().x / 3);
+        m_rectMetioriteSheet.left +=
+            static_cast<int>(Assets::metioriteSheet.getSize().x / SPRITES_PER_SHEET);
         m_spriteTimer = 0.0F;
         m_spriteIndex++;
     }
     m_metioriteSprite.setTextureRect(m_rectMetioriteSheet);
-    this->move(m_direction * 80.0F * delta.asSeconds());
+    this->move(m_direction * MOVE_SPEED * delta.asSeconds());
 
     m_metioriteSprite.setPosition(this->getPosition());
 
