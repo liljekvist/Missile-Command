@@ -49,7 +49,7 @@ Notera att ett extraval måste vara fulltständigt implementerat enligt dess kri
     - Alla missiler och projekter ska allokeras på heapen, och pekare till dessa objekt ska alltså blandas i en och samma array/behållare.
     - Det är tillåtet att använda en behållare från standardbiblioteket för detta, exempelvis `std::vector`.
     - Polymorfism ska användas i någon form.
-- [ ] Spelaren börjar med tre (3) liv. Spelet fortsätter tills att spelaren har 0 liv och förlorar, dvs. när tre olika meteorieter har nått marken. Spelarens uppgift är alltså att förstöra meteoriter innan de når marken för att fortsätta spela. Spelarens kvarvarande liv ska visualiseras på något vis, exempelvis genom att rita tre symboler eller en siffra i hörnet av fönstret.
+- [X] Spelaren börjar med tre (3) liv. Spelet fortsätter tills att spelaren har 0 liv och förlorar, dvs. när tre olika meteorieter har nått marken. Spelarens uppgift är alltså att förstöra meteoriter innan de når marken för att fortsätta spela. Spelarens kvarvarande liv ska visualiseras på något vis, exempelvis genom att rita tre symboler eller en siffra i hörnet av fönstret.
 - [ ] Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
 
 **Extraval för högre betyg:**
