@@ -1,7 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <algorithm>
 #include <any>
+#include <cstddef>
 #include <ctime>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <random>
@@ -10,14 +14,17 @@
 #include "Assets.hpp"
 #include "Explosion.hpp"
 #include "FrameCounter.hpp"
+#include "GameHud.hpp"
 #include "Meteorite.hpp"
 #include "Missile.hpp"
 #include "PauseMenu.hpp"
+#include "Player.hpp"
 #include "Scene.hpp"
 #include "State.hpp"
 #include "Text.hpp"
 #include "Tower.hpp"
 #include "VectorMath.hpp"
+#include "WaveMngr.hpp"
 
 class Game
 {
@@ -32,6 +39,7 @@ class Game
     Scene m_gameScene;
     Scene m_menuScene; // used for menus
     FrameCounter m_fCounter;
+    Player m_player;
     std::multimap<Action::Action, std::any>
         m_inputBuffer; // A action and any associated data to that action. So if a shoot action is
                        // sent any will be a Vec2 with tthe mouse position. If a action cant be
@@ -53,12 +61,14 @@ class Game
 
   protected:
   public:
+    static constexpr float BOTTOM_PADDING = 70.F;
+    inline static int width;
+    inline static int height;
+
     Game(int width, int height);
     ~Game();
     Game(const Game& other) = delete;
     Game(Game&& other) = delete;
-    inline static int width;
-    inline static int height;
     auto operator=(Game&& rhs) -> Game& = delete;
     auto operator=(const Game& other) -> Game& = delete;
     void GameLoop(); // Game Loop

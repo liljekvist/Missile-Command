@@ -1,12 +1,5 @@
 #include "Game.hpp"
-#include "Action.hpp"
-#include "State.hpp"
-#include "VectorMath.hpp"
-#include "WaveMngr.hpp"
-#include <SFML/System/Vector2.hpp>
-#include <algorithm>
-#include <cstddef>
-#include <iostream>
+#include "Player.hpp"
 
 Game::Game(int width, int height)
     : m_gameState(State::InGame)
@@ -35,13 +28,13 @@ void Game::InitGame()
         true); // no need to run the game at lightspeed. this game is a good usecase for vsync.
 
     m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - 70))); // Tower left
-    m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width / 2.0F, height - 70))); // Tower middle
-    m_gameScene.AddSceneObject(
-        std::make_shared<Tower>(sf::Vector2f(width - (width / 6.0F), height - 70))); // Tower right
+        std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - BOTTOM_PADDING))); // Tower left
+    m_gameScene.AddSceneObject(std::make_shared<Tower>(
+        sf::Vector2f(width / 2.0F, height - BOTTOM_PADDING))); // Tower middle
+    m_gameScene.AddSceneObject(std::make_shared<Tower>(
+        sf::Vector2f(width - (width / 6.0F), height - BOTTOM_PADDING))); // Tower right
 
-    m_gameScene.AddSceneObject(std::make_shared<Text>(sf::Vector2f(10, height - 70.F), "Score: 0"));
+    m_gameScene.AddSceneObject(m_player.getHud());
 
     m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(width, height));
 }
