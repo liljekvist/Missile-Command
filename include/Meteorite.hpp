@@ -22,6 +22,7 @@ class Metiorite: public Projectile
     float m_spriteTimer = 0.0F;
     int m_spriteIndex = 0;
     bool m_destroyed = false;
+    bool m_reached_target = false;
 
   public:
     Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target);
@@ -29,6 +30,7 @@ class Metiorite: public Projectile
     auto getTarget() const -> sf::Vector2f override;
     auto isInsideRadiusOfPos(const sf::Vector2f& pos, const float& radius) -> bool;
     void destroy();
+    auto hasReachedTarget() const -> bool;
 
     auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)

@@ -25,6 +25,11 @@ void Metiorite::destroy()
     m_destroyed = true;
 }
 
+auto Metiorite::hasReachedTarget() const -> bool
+{
+    return m_reached_target;
+};
+
 auto Metiorite::getTarget() const -> sf::Vector2f
 {
     return m_target;
@@ -39,6 +44,7 @@ auto Metiorite::update(const sf::Time& delta) -> bool
 {
     if(distanceBetween(m_begin, this->getPosition()) >= distanceBetween(m_begin, m_target))
     {
+        m_reached_target = true;
         return false;
     }
     if(m_destroyed)

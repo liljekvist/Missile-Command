@@ -15,7 +15,7 @@ void WaveMngr::constructWave(Scene& gameScene)
     {
         gameScene.AddSceneObject(std::make_shared<Metiorite>(
             sf::Vector2f(rand() % Game::width, 0),
-            sf::Vector2f(rand() % Game::width, Game::height)));
+            sf::Vector2f(rand() % Game::width, Game::height - Game::BOTTOM_PADDING)));
         m_enimies_remaining++;
         inc++;
     } while((m_current_wave * m_difficulty) > inc);

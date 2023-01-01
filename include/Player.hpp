@@ -20,6 +20,7 @@ class Player
   public:
     Player();
 
+    void initHud();
     void addScore(int score);
     void removeLife();
     void resetPlayer();

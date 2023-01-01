@@ -1,12 +1,13 @@
 #include "Game.hpp"
 #include "Player.hpp"
 
-Game::Game(int width, int height)
+Game::Game(int _width, int _height)
     : m_gameState(State::InGame)
-    , m_window(sf::VideoMode(width, height, 32), "Missile Command (gradius styled)")
+    , m_window(sf::VideoMode(_width, _height, 32), "Missile Command (gradius styled)")
 {
-    Game::height = height;
-    Game::width = width;
+    height = _height;
+    width = _width;
+
     Assets::loadAssets(); // Need to load the background before making the sprite
     m_backgroundSprite = sf::Sprite(Assets::background);
 
@@ -16,6 +17,7 @@ Game::Game(int width, int height)
     m_backgroundSprite.move(
         0,
         -30.0F); // Make a black bar at the bottom for text (That looks like gradius)
+    m_player.initHud();
 }
 
 Game::~Game() = default;
@@ -101,6 +103,7 @@ void Game::UpdateGame()
                 WaveMngr::passWave(); // Passing last wave.
                 WaveMngr::constructWave(m_gameScene);
             }
+
             break;
         case State::State::Pause:
             for(auto itr = m_inputBuffer.begin(); itr != m_inputBuffer.end();) // ACtions
@@ -141,12 +144,17 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
                     {
                         sf::Vector2f position = p_missile->getPosition();
                         auto metiorites = m_gameScene.getAllOfType<Metiorite>();
+                        int metiorites_destroyed =
+                            0; // this is used for if a player destroys multiple metiorites with one
+                               // missile the score will multiply with the amout destroyed
                         std::for_each(
                             metiorites.begin(),
                             metiorites.end(),
-                            [&position](auto& elem) {
+                            [&position, &metiorites_destroyed, this](auto& elem) {
                                 if(elem->isInsideRadiusOfPos(position, EXPLOTION_RADIUS))
                                 {
+                                    metiorites_destroyed++;
+                                    m_player.addScore(SCORE_PER_METIORITE * metiorites_destroyed);
                                     elem->destroy();
                                 }
                             });
@@ -160,7 +168,14 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
                     {
                         sf::Vector2f position = p_metiorite->getPosition();
                         m_gameScene.ReleaseSceneObject(obj);
+
                         WaveMngr::enemyDestroyed();
+
+                        if(p_metiorite->hasReachedTarget())
+                        {
+                            m_player.removeLife();
+                        }
+
                         m_gameScene.AddSceneObject(
                             std::make_unique<Explosion>(position, EXPLOTION_RADIUS));
                     }

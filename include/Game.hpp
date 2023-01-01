@@ -30,6 +30,7 @@ class Game
 {
     // Game Config constants
     static constexpr float EXPLOTION_RADIUS = 60.F;
+    static constexpr int SCORE_PER_METIORITE = 1000;
 
     // Variables
     State::State m_gameState;

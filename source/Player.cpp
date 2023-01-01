@@ -2,14 +2,19 @@
 #include <SFML/Window/Window.hpp>
 #include <memory>
 
-Player::Player(): m_score(0), m_lifes_left(MAX_LIFES)
+Player::Player(): m_score(0), m_lifes_left(MAX_LIFES){};
+
+void Player::initHud()
 {
-    m_hud = std::make_shared<GameHud>();
+    m_hud = std::make_shared<GameHud>(); // Needs to be initialized after window and Game static
+                                         // variables has been set.
+    updateHud(); // Sets text to the right values
 };
 
 void Player::addScore(int score)
 {
     m_score += score;
+    updateHud();
 }
 
 void Player::removeLife()
@@ -22,12 +27,14 @@ void Player::removeLife()
     {
         m_lifes_left--;
     }
+    updateHud();
 }
 
 void Player::resetPlayer()
 {
     m_lifes_left = MAX_LIFES;
     m_score = 0;
+    updateHud();
 }
 
 void Player::updateHud()
