@@ -53,7 +53,7 @@ Notera att ett extraval måste vara fulltständigt implementerat enligt dess kri
 - [ ] Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
 
 **Extraval för högre betyg:**
-- [ ] **Meny**
+- [X] **Meny**
     - Ska presenteras för spelaren när programmet startar, och återgås till när spelet är över.
     - Det ska inte finnas någon gräns för hur många gånger spelet kan startas från menyn och återgå tillbaka. Rekursion är alltså **inte** ok här.
     - Det ska *åtminstone* finnas två val för spelaren att välja mellan i menyn: starta spelet och avsluta.
