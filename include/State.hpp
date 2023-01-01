@@ -6,7 +6,8 @@ namespace State
     {
         InGame = 1,
         Menu = 2,
-        Pause = 3,
-        Exit = 4
+        GameOver = 3,
+        Pause = 4,
+        Exit = 5
     };
 }

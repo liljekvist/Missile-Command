@@ -8,3 +8,4 @@ auto distanceBetween(const sf::Vector2f& pointA, const sf::Vector2f& pointB) -> 
 auto normalize(const sf::Vector2f& vector) -> sf::Vector2f;
 auto angleBetween(const sf::Vector2f& directionA, sf::Vector2f directionB) -> float;
 auto vec2iToVec2f(sf::Vector2i rhs) -> sf::Vector2f;
+auto vec2fToVec2i(sf::Vector2f rhs) -> sf::Vector2i;

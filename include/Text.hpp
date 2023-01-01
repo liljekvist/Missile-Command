@@ -13,6 +13,8 @@ class Text: public SceneObject
 
     void updateText(const std::string& _text);
 
+    auto getRawTextObject() -> sf::Text&;
+
     auto update(const sf::Time& delta) -> bool override;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override;

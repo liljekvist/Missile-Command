@@ -26,6 +26,11 @@ void Text::updateText(const std::string& _text)
     m_text.setString(_text);
 }
 
+auto Text::getRawTextObject() -> sf::Text&
+{
+    return m_text;
+}
+
 auto Text::update(const sf::Time& /*delta*/) -> bool
 {
     return false; // no need to update this object

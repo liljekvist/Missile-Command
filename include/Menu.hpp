@@ -1,5 +1,7 @@
 #pragma once
+#include "Button.hpp"
 #include "SceneObject.hpp"
+#include <optional>
 
 class Menu: public SceneObject
 {
@@ -11,5 +13,7 @@ class Menu: public SceneObject
     auto update(const sf::Time& delta) -> bool override = 0;
     void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default)
         const override = 0;
-    virtual void setActive(bool _active) = 0;
+    virtual auto getClickedButton(
+        const sf::Vector2i& mouse_position,
+        const sf::RenderWindow& window) -> std::optional<Button> = 0;
 };

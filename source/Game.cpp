@@ -1,8 +1,12 @@
 #include "Game.hpp"
+#include "Action.hpp"
+#include "PauseMenu.hpp"
 #include "Player.hpp"
+#include <SFML/System/Vector2.hpp>
+#include <memory>
 
 Game::Game(int _width, int _height)
-    : m_gameState(State::InGame)
+    : m_gameState(State::Menu)
     , m_window(sf::VideoMode(_width, _height, 32), "Missile Command (gradius styled)")
 {
     height = _height;
@@ -38,7 +42,11 @@ void Game::InitGame()
 
     m_gameScene.AddSceneObject(m_player.getHud());
 
-    m_menuScene.AddSceneObject(std::make_shared<PauseMenu>(width, height));
+    m_mmenu = std::make_shared<MainMenu>();
+    m_mainMenuScene.AddSceneObject(m_mmenu);
+
+    m_pmenu = std::make_shared<PauseMenu>();
+    m_pauseMenuScene.AddSceneObject(m_pmenu);
 }
 
 void Game::HandleInput()
@@ -108,10 +116,14 @@ void Game::UpdateGame()
         case State::State::Pause:
             for(auto itr = m_inputBuffer.begin(); itr != m_inputBuffer.end();) // ACtions
             {
-                if(itr->first == Action::Space) // Action is shoot and any is mousePos
+                if(itr->first == Action::LMouse) // Action is shoot and any is mousePos
                 {
-                    m_gameState = State::State::Exit;
-
+                    if(auto button = m_pmenu->getClickedButton(
+                           std::any_cast<sf::Vector2i>(itr->second),
+                           m_window))
+                    {
+                        m_gameState = button->doAction();
+                    }
                     itr = m_inputBuffer.erase(itr);
                 }
                 else
@@ -121,7 +133,26 @@ void Game::UpdateGame()
             }
             m_inputBuffer.clear(); // void inputs after handling is done
             break;
-        case State::Menu: break;
+        case State::Menu:
+            for(auto itr = m_inputBuffer.begin(); itr != m_inputBuffer.end();) // ACtions
+            {
+                if(itr->first == Action::LMouse) // Action is shoot and any is mousePos
+                {
+                    if(auto button = m_mmenu->getClickedButton(
+                           std::any_cast<sf::Vector2i>(itr->second),
+                           m_window))
+                    {
+                        m_gameState = button->doAction();
+                    }
+                    itr = m_inputBuffer.erase(itr);
+                }
+                else
+                {
+                    itr++; // not handled event so ignore
+                }
+            }
+            m_inputBuffer.clear(); // void inputs after handling is done
+            break;
         case State::Exit: break;
     }
 }
@@ -188,35 +219,10 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
                 }
             }
             break;
-        case State::State::Pause:
-            for(const auto& obj : m_menuScene.getVec())
-            {
-                if(!obj->update(delta))
-                {
-                    if(std::shared_ptr<PauseMenu> pmenu = std::dynamic_pointer_cast<PauseMenu>(obj);
-                       pmenu)
-                    {
-                        pmenu->setActive(true);
-                    }
-                    // l�gg till mainmenu och scoreboard
-                }
-            }
-            break;
-        case State::State::Menu:
-            for(const auto& obj : m_menuScene.getVec())
-            {
-                if(!obj->update(delta))
-                {
-                    if(std::shared_ptr<PauseMenu> p_menu =
-                           std::dynamic_pointer_cast<PauseMenu>(obj);
-                       p_menu)
-                    {
-                        p_menu->setActive(false);
-                    }
-                    // l�gg till mainmenu och scoreboard
-                }
-            }
-            break;
+
+        case State::GameOver: break;
+        case State::Pause: break;
+        case State::Menu: break;
         case State::Exit: break;
     }
 }
@@ -235,12 +241,17 @@ void Game::ComposeFrame()
             }
             break;
         case State::State::Pause:
-            for(auto& itr : m_menuScene)
+            for(auto& itr : m_pauseMenuScene)
             {
                 m_window.draw(*itr);
             }
             break;
-        case State::Menu: break;
+        case State::Menu:
+            for(auto& itr : m_mainMenuScene)
+            {
+                m_window.draw(*itr);
+            }
+            break;
         case State::Exit: break;
     }
 

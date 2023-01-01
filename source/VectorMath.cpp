@@ -36,3 +36,8 @@ auto vec2iToVec2f(sf::Vector2i rhs) -> sf::Vector2f
 {
     return {static_cast<float>(rhs.x), static_cast<float>(rhs.y)};
 }
+
+auto vec2fToVec2i(sf::Vector2f rhs) -> sf::Vector2i
+{
+    return {static_cast<int>(rhs.x), static_cast<int>(rhs.y)};
+}

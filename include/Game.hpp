@@ -15,6 +15,7 @@
 #include "Explosion.hpp"
 #include "FrameCounter.hpp"
 #include "GameHud.hpp"
+#include "MainMenu.hpp"
 #include "Meteorite.hpp"
 #include "Missile.hpp"
 #include "PauseMenu.hpp"
@@ -38,9 +39,12 @@ class Game
     sf::Clock m_clock;
     sf::Sprite m_backgroundSprite;
     Scene m_gameScene;
-    Scene m_menuScene; // used for menus
+    Scene m_pauseMenuScene;
+    Scene m_mainMenuScene;
     FrameCounter m_fCounter;
     Player m_player;
+    std::shared_ptr<PauseMenu> m_pmenu;
+    std::shared_ptr<MainMenu> m_mmenu;
     std::multimap<Action::Action, std::any>
         m_inputBuffer; // A action and any associated data to that action. So if a shoot action is
                        // sent any will be a Vec2 with tthe mouse position. If a action cant be
