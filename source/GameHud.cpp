@@ -21,7 +21,7 @@ void GameHud::setLifeText(const std::string& _text)
 
 auto GameHud::update(const sf::Time& delta) -> bool
 {
-    return false;
+    return true;
 }
 
 void GameHud::draw(sf::RenderTarget& target, sf::RenderStates states) const

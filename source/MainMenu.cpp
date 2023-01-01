@@ -17,7 +17,7 @@ MainMenu::MainMenu()
 
 auto MainMenu::update(const sf::Time& delta) -> bool
 {
-    return false;
+    return true;
 }
 
 void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const

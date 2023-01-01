@@ -33,7 +33,7 @@ auto Text::getRawTextObject() -> sf::Text&
 
 auto Text::update(const sf::Time& /*delta*/) -> bool
 {
-    return false; // no need to update this object
+    return true; // no need to update this object
 }
 
 void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const
