@@ -66,7 +66,7 @@ Notera att ett extraval måste vara fulltständigt implementerat enligt dess kri
     - Spelaren vinner en spelrunda när alla meteoriter i den rundan är förstörda.
     - Det ska finnas någon tydlig indikation att en ny spelrunda påbörjas, exempelvis en viss text i fönstret.
     - Antalet meteoriter ska öka för varje spelrunda. Exempelvis kan första rundan innehålla fem (5) meteoriter, andra rundan tio (10) meteoriter, tredje rundan femton (15) meteoriter osv.
-- [ ] **Highscores**
+- [X] **Highscores**
     - Spelaren ska samla någon form av poäng under sitt spelande. Exempelvis kan spelaren få poäng baserat på speltid, eller antalet meteoriter som spelaren förstör.
     - Under speltid ska spelaren alltid se sin nuvarande poäng. Exempelvis kan poängen ritas som siffra i ett av hörnen på fönstret.
     - Upp till fem (5) högsta poängresultat ska lagras till en fil mellan programkörningar. Poängen i filen ska lagras i ordning.
