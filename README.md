@@ -50,7 +50,7 @@ Notera att ett extraval måste vara fulltständigt implementerat enligt dess kri
     - Det är tillåtet att använda en behållare från standardbiblioteket för detta, exempelvis `std::vector`.
     - Polymorfism ska användas i någon form.
 - [X] Spelaren börjar med tre (3) liv. Spelet fortsätter tills att spelaren har 0 liv och förlorar, dvs. när tre olika meteorieter har nått marken. Spelarens uppgift är alltså att förstöra meteoriter innan de når marken för att fortsätta spela. Spelarens kvarvarande liv ska visualiseras på något vis, exempelvis genom att rita tre symboler eller en siffra i hörnet av fönstret.
-- [ ] Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
+- [X] Spelet kan påbörjas direkt programmet startar. När spelet är över ska spelaren presenteras med texten "Game Over" följt av att programmet kan avslutas.
 
 **Extraval för högre betyg:**
 - [X] **Meny**
@@ -60,7 +60,7 @@ Notera att ett extraval måste vara fulltständigt implementerat enligt dess kri
 - [X] **Fler torn**
     - Det ska finnas tre (3) torn istället för ett (1).
     - När spelaren väljer att avfyra en missil ska denna avfyras från närmsta torn (till destinationen) som inte är på "nerkylning" (cooldown). Om samtliga torn är på "nerkylning" kan ingen missil skjutas.
-- [ ] **Spelrundor**
+- [X] **Spelrundor**
     - Istället för ett kontinuerligt spel som bara tar slut när spelaren förlorar ska det finnas "spelrundor".
     - Under en spelrunda ska det skapas ett bestämt antal meteoriter.
     - Spelaren vinner en spelrunda när alla meteoriter i den rundan är förstörda.
