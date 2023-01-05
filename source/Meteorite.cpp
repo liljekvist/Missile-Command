@@ -7,10 +7,10 @@ Metiorite::Metiorite(const sf::Vector2f& begin, const sf::Vector2f& target)
     , m_target(target)
     , m_direction(normalize(m_target - m_begin))
 {
-    sf::Vector2u sheet_size = Assets::metioriteSheet.getSize();
+    sf::Vector2u sheet_size = Assets::metiorite_sheet.getSize();
     m_rectMetioriteSheet =
         sf::IntRect(0, 0, sheet_size.x / SPRITES_PER_SHEET, sheet_size.y); // 3 sprites in one sheet
-    m_metioriteSprite = sf::Sprite(Assets::metioriteSheet, m_rectMetioriteSheet);
+    m_metioriteSprite = sf::Sprite(Assets::metiorite_sheet, m_rectMetioriteSheet);
 
     sf::Vector2f adjusted_position;
     adjusted_position.x = begin.x - ((sheet_size.x / SPRITES_PER_SHEET) / 2.0F); // texture magic :P
@@ -63,7 +63,7 @@ auto Metiorite::update(const sf::Time& delta) -> bool
     if(m_spriteTimer > ANIMATION_ROTATION_DELAY)
     {
         m_rectMetioriteSheet.left +=
-            static_cast<int>(Assets::metioriteSheet.getSize().x / SPRITES_PER_SHEET);
+            static_cast<int>(Assets::metiorite_sheet.getSize().x / SPRITES_PER_SHEET);
         m_spriteTimer = 0.0F;
         m_spriteIndex++;
     }

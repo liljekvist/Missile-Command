@@ -104,6 +104,9 @@
     <ClCompile Include="source\GameHud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GameOverMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="source\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

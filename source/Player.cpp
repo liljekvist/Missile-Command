@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "WaveMngr.hpp"
 #include <SFML/Window/Window.hpp>
 #include <memory>
 
@@ -41,6 +42,7 @@ void Player::updateHud()
 {
     m_hud->setLifeText("Lifes: " + std::to_string(m_lifes_left));
     m_hud->setScoreText("Score: " + std::to_string(m_score));
+    m_hud->setWaveText("Wave: " + std::to_string(WaveMngr::getWave()));
 }
 
 auto Player::isAlive() const -> bool

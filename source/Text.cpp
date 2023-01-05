@@ -4,7 +4,7 @@ Text::Text(const sf::Vector2f& position, const std::string& _text, const int fon
     : SceneObject(position)
 {
     // select the font
-    m_text.setFont(Assets::textFont); // font is a sf::Font
+    m_text.setFont(Assets::text_font); // font is a sf::Font
 
     // set the string to display
     m_text.setString(_text);

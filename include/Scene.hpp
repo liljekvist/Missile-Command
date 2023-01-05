@@ -24,8 +24,6 @@ class Scene
 
     auto getVec() -> std::vector<std::shared_ptr<SceneObject>>;
 
-    
-    
     auto AddSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
     auto ReleaseSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
     auto GetClosestFirableTower(sf::Vector2f pos) -> std::shared_ptr<Tower>;
@@ -67,7 +65,7 @@ class Scene
         // Clostest
         for(auto& obj : m_drawables)
         {
-            if(std::shared_ptr<T> ch_obj = std::dynamic_pointer_cast<T>(obj);
+            if(std::shared_ptr<T> const ch_obj = std::dynamic_pointer_cast<T>(obj);
                ch_obj) // not nullptr. Casted correctly
             {
                 v_type.push_back(ch_obj);

@@ -5,10 +5,10 @@ Explosion::Explosion(const sf::Vector2f& position, float radius)
     , m_radius(0)
     , m_targetRadius(radius)
 {
-    auto sheet_size = Assets::explotionSheet.getSize();
+    auto sheet_size = Assets::explotion_sheet.getSize();
     m_rectExplotionSheet =
         sf::IntRect(0, 0, sheet_size.x / 6, sheet_size.y); // 6 sprites in one sheet
-    m_explotionSheet = sf::Sprite(Assets::explotionSheet, m_rectExplotionSheet);
+    m_explotionSheet = sf::Sprite(Assets::explotion_sheet, m_rectExplotionSheet);
     sf::Vector2f adjusted_position;
     adjusted_position.x = position.x - ((sheet_size.x / 6.0f) / 2); // texture magic :P
     adjusted_position.y = position.y - (sheet_size.y / 2.0f);
@@ -27,7 +27,7 @@ auto Explosion::update(const sf::Time& delta) -> bool
 
     if(m_spriteTimer > 0.07F)
     {
-        m_rectExplotionSheet.left += Assets::explotionSheet.getSize().x / 6;
+        m_rectExplotionSheet.left += Assets::explotion_sheet.getSize().x / 6;
         m_spriteTimer = 0.0F;
         m_spriteIndex++;
     }

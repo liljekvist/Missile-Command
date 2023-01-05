@@ -1,5 +1,5 @@
-#include "WaveMngr.hpp"
 #include "Meteorite.hpp"
+#include "WaveMngr.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <cstdlib>
 #include <memory>
@@ -44,4 +44,11 @@ auto WaveMngr::getWave() -> int
 auto WaveMngr::getEnemiesRemaning() -> int
 {
     return m_enimies_remaining;
+}
+
+void WaveMngr::reset()
+{
+    m_current_wave = 0;
+    m_difficulty = 1;
+    m_enimies_remaining = 0;
 }

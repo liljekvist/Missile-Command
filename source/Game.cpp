@@ -1,5 +1,5 @@
-#include "Game.hpp"
 #include "Action.hpp"
+#include "Game.hpp"
 #include "GameOverMenu.hpp"
 #include "PauseMenu.hpp"
 #include "Player.hpp"
@@ -8,8 +8,7 @@
 #include <memory>
 
 Game::Game(int _width, int _height)
-    : m_gameState(State::Menu)
-    , m_window(sf::VideoMode(_width, _height, 32), "Missile Command (gradius styled)")
+    : m_window(sf::VideoMode(_width, _height, 32), "Missile Command (gradius styled)")
 {
     height = _height;
     width = _width;
@@ -123,6 +122,12 @@ void Game::UpdateGame()
             else if(!m_player.isAlive())
             {
                 m_gameState = State::GameOver;
+                auto objects_to_clear = m_gameScene.getAllOfType<Metiorite>();
+                for(auto& metiorite : objects_to_clear)
+                {
+                    m_gameScene.ReleaseSceneObject(metiorite);
+                }
+                WaveMngr::reset();
             }
 
             break;
@@ -197,7 +202,7 @@ void Game::UpdateGame()
 void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into parts or move code to
                           // objects
 {
-    sf::Time delta = m_clock.restart();
+    sf::Time const delta = m_clock.restart();
 
     switch(m_gameState)
     {
@@ -207,7 +212,8 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
             {
                 if(!obj->update(delta))
                 {
-                    if(std::shared_ptr<Missile> p_missile = std::dynamic_pointer_cast<Missile>(obj);
+                    if(std::shared_ptr<Missile> const p_missile =
+                           std::dynamic_pointer_cast<Missile>(obj);
                        p_missile)
                     {
                         sf::Vector2f position = p_missile->getPosition();
@@ -230,11 +236,11 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
                         m_gameScene.AddSceneObject(
                             std::make_unique<Explosion>(position, EXPLOTION_RADIUS));
                     }
-                    else if(std::shared_ptr<Metiorite> p_metiorite =
+                    else if(std::shared_ptr<Metiorite> const p_metiorite =
                                 std::dynamic_pointer_cast<Metiorite>(obj);
                             p_metiorite)
                     {
-                        sf::Vector2f position = p_metiorite->getPosition();
+                        sf::Vector2f const position = p_metiorite->getPosition();
                         m_gameScene.ReleaseSceneObject(obj);
 
                         WaveMngr::enemyDestroyed();
@@ -247,7 +253,7 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
                         m_gameScene.AddSceneObject(
                             std::make_unique<Explosion>(position, EXPLOTION_RADIUS));
                     }
-                    else if(std::shared_ptr<Explosion> p_explotion =
+                    else if(std::shared_ptr<Explosion> const p_explotion =
                                 std::dynamic_pointer_cast<Explosion>(obj);
                             p_explotion)
                     {

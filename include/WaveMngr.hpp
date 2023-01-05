@@ -20,4 +20,5 @@ class WaveMngr
     static auto getDifficulty() -> int;
     static auto getWave() -> int;
     static auto getEnemiesRemaning() -> int;
+    static void reset();
 };

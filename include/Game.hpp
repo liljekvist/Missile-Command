@@ -35,7 +35,7 @@ class Game
     static constexpr int SCORE_PER_METIORITE = 1000;
 
     // Variables
-    State::State m_gameState;
+    State::State m_gameState{State::Menu};
     sf::RenderWindow m_window; // Main game window
     sf::Clock m_clock;
     sf::Sprite m_backgroundSprite;

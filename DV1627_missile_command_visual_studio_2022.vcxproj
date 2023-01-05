@@ -18,6 +18,55 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Action.hpp" />
+    <ClInclude Include="include\Assets.hpp" />
+    <ClInclude Include="include\Button.hpp" />
+    <ClInclude Include="include\Explosion.hpp" />
+    <ClInclude Include="include\FrameCounter.hpp" />
+    <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\GameHud.hpp" />
+    <ClInclude Include="include\GameOverMenu.hpp" />
+    <ClInclude Include="include\MainMenu.hpp" />
+    <ClInclude Include="include\Menu.hpp" />
+    <ClInclude Include="include\Meteorite.hpp" />
+    <ClInclude Include="include\Missile.hpp" />
+    <ClInclude Include="include\PauseMenu.hpp" />
+    <ClInclude Include="include\Player.hpp" />
+    <ClInclude Include="include\Projectile.hpp" />
+    <ClInclude Include="include\Scene.hpp" />
+    <ClInclude Include="include\SceneObject.hpp" />
+    <ClInclude Include="include\ScoreBoard.hpp" />
+    <ClInclude Include="include\State.hpp" />
+    <ClInclude Include="include\Text.hpp" />
+    <ClInclude Include="include\Tower.hpp" />
+    <ClInclude Include="include\VectorMath.hpp" />
+    <ClInclude Include="include\WaveMngr.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\Assets.cpp" />
+    <ClCompile Include="source\Button.cpp" />
+    <ClCompile Include="source\Explosion.cpp" />
+    <ClCompile Include="source\FrameCounter.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\GameHud.cpp" />
+    <ClCompile Include="source\GameOverMenu.cpp" />
+    <ClCompile Include="source\MainMenu.cpp" />
+    <ClCompile Include="source\Menu.cpp" />
+    <ClCompile Include="source\Meteorite.cpp" />
+    <ClCompile Include="source\Missile.cpp" />
+    <ClCompile Include="source\PauseMenu.cpp" />
+    <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\Projectile.cpp" />
+    <ClCompile Include="source\Scene.cpp" />
+    <ClCompile Include="source\SceneObject.cpp" />
+    <ClCompile Include="source\ScoreBoard.cpp" />
+    <ClCompile Include="source\Text.cpp" />
+    <ClCompile Include="source\Tower.cpp" />
+    <ClCompile Include="source\VectorMath.cpp" />
+    <ClCompile Include="source\WaveMngr.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -172,54 +221,6 @@
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Action.hpp" />
-    <ClInclude Include="include\Assets.hpp" />
-    <ClInclude Include="include\Button.hpp" />
-    <ClInclude Include="include\Explosion.hpp" />
-    <ClInclude Include="include\FrameCounter.hpp" />
-    <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\GameHud.hpp" />
-    <ClInclude Include="include\GameOverMenu.hpp" />
-    <ClInclude Include="include\MainMenu.hpp" />
-    <ClInclude Include="include\Menu.hpp" />
-    <ClInclude Include="include\Meteorite.hpp" />
-    <ClInclude Include="include\Missile.hpp" />
-    <ClInclude Include="include\PauseMenu.hpp" />
-    <ClInclude Include="include\Player.hpp" />
-    <ClInclude Include="include\Projectile.hpp" />
-    <ClInclude Include="include\Scene.hpp" />
-    <ClInclude Include="include\SceneObject.hpp" />
-    <ClInclude Include="include\ScoreBoard.hpp" />
-    <ClInclude Include="include\State.hpp" />
-    <ClInclude Include="include\Text.hpp" />
-    <ClInclude Include="include\Tower.hpp" />
-    <ClInclude Include="include\VectorMath.hpp" />
-    <ClInclude Include="include\WaveMngr.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="source\Assets.cpp" />
-    <ClCompile Include="source\Button.cpp" />
-    <ClCompile Include="source\Explosion.cpp" />
-    <ClCompile Include="source\FrameCounter.cpp" />
-    <ClCompile Include="source\Game.cpp" />
-    <ClCompile Include="source\GameHud.cpp" />
-    <ClCompile Include="source\MainMenu.cpp" />
-    <ClCompile Include="source\Menu.cpp" />
-    <ClCompile Include="source\Meteorite.cpp" />
-    <ClCompile Include="source\Missile.cpp" />
-    <ClCompile Include="source\PauseMenu.cpp" />
-    <ClCompile Include="source\Player.cpp" />
-    <ClCompile Include="source\Projectile.cpp" />
-    <ClCompile Include="source\Scene.cpp" />
-    <ClCompile Include="source\SceneObject.cpp" />
-    <ClCompile Include="source\ScoreBoard.cpp" />
-    <ClCompile Include="source\Text.cpp" />
-    <ClCompile Include="source\Tower.cpp" />
-    <ClCompile Include="source\VectorMath.cpp" />
-    <ClCompile Include="source\WaveMngr.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
