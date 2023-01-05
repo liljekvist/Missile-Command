@@ -25,5 +25,6 @@ class Player
     void removeLife();
     void resetPlayer();
     void updateHud();
+    [[nodiscard]] auto isAlive() const -> bool;
     auto getHud() -> std::shared_ptr<GameHud>;
 };

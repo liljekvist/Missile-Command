@@ -24,6 +24,8 @@ class Scene
 
     auto getVec() -> std::vector<std::shared_ptr<SceneObject>>;
 
+    
+    
     auto AddSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
     auto ReleaseSceneObject(std::shared_ptr<SceneObject> Obj) -> bool;
     auto GetClosestFirableTower(sf::Vector2f pos) -> std::shared_ptr<Tower>;
