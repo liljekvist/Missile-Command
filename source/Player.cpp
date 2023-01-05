@@ -43,6 +43,11 @@ void Player::updateHud()
     m_hud->setScoreText("Score: " + std::to_string(m_score));
 }
 
+auto Player::isAlive() const -> bool
+{
+    return (m_lifes_left > 0);
+}
+
 auto Player::getHud() -> std::shared_ptr<GameHud>
 {
     return m_hud;

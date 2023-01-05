@@ -1,7 +1,9 @@
 #include "Game.hpp"
 #include "Action.hpp"
+#include "GameOverMenu.hpp"
 #include "PauseMenu.hpp"
 #include "Player.hpp"
+#include "State.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <memory>
 
@@ -33,6 +35,7 @@ void Game::InitGame()
     m_window.setVerticalSyncEnabled(
         true); // no need to run the game at lightspeed. this game is a good usecase for vsync.
 
+    // Game scene
     m_gameScene.AddSceneObject(
         std::make_shared<Tower>(sf::Vector2f(width / 6.0F, height - BOTTOM_PADDING))); // Tower left
     m_gameScene.AddSceneObject(std::make_shared<Tower>(
@@ -42,11 +45,17 @@ void Game::InitGame()
 
     m_gameScene.AddSceneObject(m_player.getHud());
 
+    // Main menu scene
     m_mmenu = std::make_shared<MainMenu>();
     m_mainMenuScene.AddSceneObject(m_mmenu);
 
+    // Pause menu scene
     m_pmenu = std::make_shared<PauseMenu>();
     m_pauseMenuScene.AddSceneObject(m_pmenu);
+
+    // Game over scene
+    m_omenu = std::make_shared<GameOverMenu>();
+    m_gameOverScene.AddSceneObject(m_omenu);
 }
 
 void Game::HandleInput()
@@ -111,6 +120,10 @@ void Game::UpdateGame()
                 WaveMngr::passWave(); // Passing last wave.
                 WaveMngr::constructWave(m_gameScene);
             }
+            else if(!m_player.isAlive())
+            {
+                m_gameState = State::GameOver;
+            }
 
             break;
         case State::State::Pause:
@@ -139,6 +152,30 @@ void Game::UpdateGame()
                 if(itr->first == Action::LMouse) // Action is shoot and any is mousePos
                 {
                     if(auto button = m_mmenu->getClickedButton(
+                           std::any_cast<sf::Vector2i>(itr->second),
+                           m_window))
+                    {
+                        m_gameState = button->doAction();
+                        if(m_gameState == State::InGame)
+                        {
+                            m_player.resetPlayer();
+                        }
+                    }
+                    itr = m_inputBuffer.erase(itr);
+                }
+                else
+                {
+                    itr++; // not handled event so ignore
+                }
+            }
+            m_inputBuffer.clear(); // void inputs after handling is done
+            break;
+        case State::GameOver:
+            for(auto itr = m_inputBuffer.begin(); itr != m_inputBuffer.end();) // ACtions
+            {
+                if(itr->first == Action::LMouse) // Action is shoot and any is mousePos
+                {
+                    if(auto button = m_omenu->getClickedButton(
                            std::any_cast<sf::Vector2i>(itr->second),
                            m_window))
                     {
@@ -252,12 +289,17 @@ void Game::ComposeFrame()
                 m_window.draw(*itr);
             }
             break;
+        case State::GameOver:
+            for(auto& itr : m_gameOverScene)
+            {
+                m_window.draw(*itr);
+            }
+            break;
+
         case State::Exit: break;
     }
 
     m_window.display();
-    // fCounter.updateFps();
-    // fCounter.printFps();
 }
 
 void Game::GameLoop()
