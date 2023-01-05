@@ -3,6 +3,7 @@
 #include "GameOverMenu.hpp"
 #include "PauseMenu.hpp"
 #include "Player.hpp"
+#include "ScoreFile.hpp"
 #include "State.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <memory>
@@ -122,11 +123,14 @@ void Game::UpdateGame()
             else if(!m_player.isAlive())
             {
                 m_gameState = State::GameOver;
+                m_player.saveScore();
+                m_omenu->loadScores(ScoreFile::getScores());
                 auto objects_to_clear = m_gameScene.getAllOfType<Metiorite>();
                 for(auto& metiorite : objects_to_clear)
                 {
                     m_gameScene.ReleaseSceneObject(metiorite);
                 }
+
                 WaveMngr::reset();
             }
 

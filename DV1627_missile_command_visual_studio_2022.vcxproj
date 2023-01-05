@@ -37,6 +37,7 @@
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneObject.hpp" />
     <ClInclude Include="include\ScoreBoard.hpp" />
+    <ClInclude Include="include\ScoreFile.hpp" />
     <ClInclude Include="include\State.hpp" />
     <ClInclude Include="include\Text.hpp" />
     <ClInclude Include="include\Tower.hpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneObject.cpp" />
     <ClCompile Include="source\ScoreBoard.cpp" />
+    <ClCompile Include="source\ScoreFile.cpp" />
     <ClCompile Include="source\Text.cpp" />
     <ClCompile Include="source\Tower.cpp" />
     <ClCompile Include="source\VectorMath.cpp" />

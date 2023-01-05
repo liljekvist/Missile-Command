@@ -2,6 +2,7 @@
 
 #include "GameHud.hpp"
 #include "SceneObject.hpp"
+#include "ScoreFile.hpp"
 #include <SFML/Window/Window.hpp>
 #include <memory>
 #include <string>
@@ -20,6 +21,7 @@ class Player
   public:
     Player();
 
+    void saveScore();
     void initHud();
     void addScore(int score);
     void removeLife();

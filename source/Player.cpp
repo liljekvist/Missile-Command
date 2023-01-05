@@ -5,6 +5,10 @@
 
 Player::Player(): m_score(0), m_lifes_left(MAX_LIFES){};
 
+void Player::saveScore() {
+    ScoreFile::addScore(m_score);
+}
+
 void Player::initHud()
 {
     m_hud = std::make_shared<GameHud>(); // Needs to be initialized after window and Game static
