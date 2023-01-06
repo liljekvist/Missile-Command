@@ -1,5 +1,5 @@
-#include "Action.hpp"
 #include "Game.hpp"
+#include "Action.hpp"
 #include "GameOverMenu.hpp"
 #include "PauseMenu.hpp"
 #include "Player.hpp"
@@ -211,7 +211,6 @@ void Game::UpdateScreen() // Needs a refactor too complex. maybe split it into p
     switch(m_gameState)
     {
         case State::State::InGame:
-            std::cout << m_gameScene.getSize() << std::endl;
             for(const auto& obj : m_gameScene.getVec())
             {
                 if(!obj->update(delta))
