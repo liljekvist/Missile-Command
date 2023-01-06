@@ -13,7 +13,6 @@
 #include "Action.hpp"
 #include "Assets.hpp"
 #include "Explosion.hpp"
-#include "FrameCounter.hpp"
 #include "GameHud.hpp"
 #include "GameOverMenu.hpp"
 #include "MainMenu.hpp"
