@@ -23,7 +23,6 @@
     <ClInclude Include="include\Assets.hpp" />
     <ClInclude Include="include\Button.hpp" />
     <ClInclude Include="include\Explosion.hpp" />
-    <ClInclude Include="include\FrameCounter.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\GameHud.hpp" />
     <ClInclude Include="include\GameOverMenu.hpp" />
@@ -36,7 +35,6 @@
     <ClInclude Include="include\Projectile.hpp" />
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneObject.hpp" />
-    <ClInclude Include="include\ScoreBoard.hpp" />
     <ClInclude Include="include\ScoreFile.hpp" />
     <ClInclude Include="include\State.hpp" />
     <ClInclude Include="include\Text.hpp" />
@@ -49,7 +47,6 @@
     <ClCompile Include="source\Assets.cpp" />
     <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\Explosion.cpp" />
-    <ClCompile Include="source\FrameCounter.cpp" />
     <ClCompile Include="source\Game.cpp" />
     <ClCompile Include="source\GameHud.cpp" />
     <ClCompile Include="source\GameOverMenu.cpp" />
@@ -62,12 +59,15 @@
     <ClCompile Include="source\Projectile.cpp" />
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneObject.cpp" />
-    <ClCompile Include="source\ScoreBoard.cpp" />
     <ClCompile Include="source\ScoreFile.cpp" />
     <ClCompile Include="source\Text.cpp" />
     <ClCompile Include="source\Tower.cpp" />
     <ClCompile Include="source\VectorMath.cpp" />
     <ClCompile Include="source\WaveMngr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram21.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

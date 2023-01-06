@@ -365,3 +365,8 @@ FodyWeavers.xsd
 int/
 build/
 /scores.txt
+/docs
+/html
+/latex
+/tmp
+*.cd
